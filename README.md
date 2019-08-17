@@ -5,7 +5,7 @@
 # Profiler
 > Profiler to time actions in your code with context.
 
-[![circleci-image]][circleci-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]] license-url]
+[![circleci-image]][circleci-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
 
 Profiler is a tiny library to time functions in your Node.js code with context, so that you can present related actions after they have been completed.
 
