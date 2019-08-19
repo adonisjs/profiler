@@ -1,6 +1,6 @@
-> **[@poppinss/profiler](../README.md)**
+**[@poppinss/profiler](../README.md)**
 
-[Globals](../README.md) / ["Profiler/Row"](../modules/_profiler_row_.md) / [ProfilerRow](_profiler_row_.profilerrow.md) /
+[Globals](../README.md) › ["Profiler/Row"](../modules/_profiler_row_.md) › [ProfilerRow](_profiler_row_.profilerrow.md)
 
 # Class: ProfilerRow
 
@@ -9,11 +9,14 @@ number of nested rows can be created.
 
 ## Hierarchy
 
-* **ProfilerRow**
+* [Profile](_profiler_profile_.profile.md)
+
+  * **ProfilerRow**
 
 ## Implements
 
-* [ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)
+* [ProfileContract](../interfaces/_poppinss_profiler.profilecontract.md)
+* [ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)
 
 ## Index
 
@@ -27,6 +30,7 @@ number of nested rows can be created.
 
 ### Methods
 
+* [$getAction](_profiler_row_.profilerrow.md#protected-$getaction)
 * [child](_profiler_row_.profilerrow.md#child)
 * [end](_profiler_row_.profilerrow.md#end)
 * [profile](_profiler_row_.profilerrow.md#profile)
@@ -36,14 +40,14 @@ number of nested rows can be created.
 
 ###  constructor
 
-\+ **new ProfilerRow**(`_label`: string, `_manager`: [ProfilerContract](../interfaces/_contracts_index_.profilercontract.md), `_data?`: any, `_parentId?`: undefined | string): *[ProfilerRow](_profiler_row_.profilerrow.md)*
+\+ **new ProfilerRow**(`_label`: string, `_manager`: [ProfilerContract](../interfaces/_poppinss_profiler.profilercontract.md), `_data?`: any, `_parentId?`: undefined | string): *[ProfilerRow](_profiler_row_.profilerrow.md)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `_label` | string |
-`_manager` | [ProfilerContract](../interfaces/_contracts_index_.profilercontract.md) |
+`_manager` | [ProfilerContract](../interfaces/_poppinss_profiler.profilercontract.md) |
 `_data?` | any |
 `_parentId?` | undefined \| string |
 
@@ -61,11 +65,30 @@ Returns a boolean telling if a parent exists
 
 ## Methods
 
+### `Protected` $getAction
+
+▸ **$getAction**(`action`: string, `data?`: any): *[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)*
+
+*Overrides [Profile](_profiler_profile_.profile.md).[$getAction](_profiler_profile_.profile.md#protected-abstract-$getaction)*
+
+Returns the action instance to be used by the [Profile](_profiler_profile_.profile.md) class
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`action` | string |
+`data?` | any |
+
+**Returns:** *[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)*
+
+___
+
 ###  child
 
-▸ **child**(`label`: string, `data?`: any): *[ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+▸ **child**(`label`: string, `data?`: any): *[ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
 
-*Implementation of [ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+*Implementation of [ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
 
 Get a new child logger. Child logger will emit a new row
 in the events timeline
@@ -77,7 +100,7 @@ Name | Type |
 `label` | string |
 `data?` | any |
 
-**Returns:** *[ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+**Returns:** *[ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
 
 ___
 
@@ -85,7 +108,7 @@ ___
 
 ▸ **end**(`data?`: any): *void*
 
-*Implementation of [ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+*Implementation of [ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
 
 End the profiler instance by emitting end packet. After
 this all profiling calls will be considered overflows
@@ -102,7 +125,9 @@ ___
 
 ###  profile
 
-▸ **profile**<**T**>(`action`: string, `data`: any, `cb`: function): *`T`*
+▸ **profile**<**T**>(`action`: string, `data`: any, `cb`: function): *T*
+
+*Inherited from [Profile](_profiler_profile_.profile.md).[profile](_profiler_profile_.profile.md#profile)*
 
 Get a new profiler action instance to time your code. Make sure
 to call the `end` function, when manually managing the actions
@@ -119,13 +144,15 @@ to call the `end` function, when manually managing the actions
 
 ▪ **cb**: *function*
 
-▸ (): *`T`*
+▸ (): *T*
 
-**Returns:** *`T`*
+**Returns:** *T*
 
-▸ **profile**(`action`: string, `data?`: any): *[ProfilerActionContract](../interfaces/_contracts_index_.profileractioncontract.md)*
+▸ **profile**(`action`: string, `data?`: any): *[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)*
 
-*Implementation of [ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+*Implementation of [ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
+
+*Inherited from [Profile](_profiler_profile_.profile.md).[profile](_profiler_profile_.profile.md#profile)*
 
 **Parameters:**
 
@@ -134,15 +161,18 @@ Name | Type |
 `action` | string |
 `data?` | any |
 
-**Returns:** *[ProfilerActionContract](../interfaces/_contracts_index_.profileractioncontract.md)*
+**Returns:** *[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)*
 
 ___
 
 ###  profileAsync
 
-▸ **profileAsync**<**T**>(`action`: string, `data`: any, `cb`: function): *`Promise<T>`*
+▸ **profileAsync**<**T**>(`action`: string, `data`: any, `cb`: function): *Promise‹T›*
 
-Same as [[this.profile]] but async
+*Inherited from [Profile](_profiler_profile_.profile.md).[profileAsync](_profiler_profile_.profile.md#profileasync)*
+
+Profile asyncronously. If you are are not passing a callback to this method,
+then consider using [[this.profile]].
 
 **Type parameters:**
 
@@ -156,13 +186,15 @@ Same as [[this.profile]] but async
 
 ▪ **cb**: *function*
 
-▸ (): *`Promise<T>`*
+▸ (): *Promise‹T›*
 
-**Returns:** *`Promise<T>`*
+**Returns:** *Promise‹T›*
 
-▸ **profileAsync**(`action`: string, `data?`: any): *`Promise<ProfilerActionContract>`*
+▸ **profileAsync**(`action`: string, `data?`: any): *Promise‹[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)›*
 
-*Implementation of [ProfilerRowContract](../interfaces/_contracts_index_.profilerrowcontract.md)*
+*Implementation of [ProfilerRowContract](../interfaces/_poppinss_profiler.profilerrowcontract.md)*
+
+*Inherited from [Profile](_profiler_profile_.profile.md).[profileAsync](_profiler_profile_.profile.md#profileasync)*
 
 **Parameters:**
 
@@ -171,4 +203,4 @@ Name | Type |
 `action` | string |
 `data?` | any |
 
-**Returns:** *`Promise<ProfilerActionContract>`*
+**Returns:** *Promise‹[ProfilerActionContract](../interfaces/_poppinss_profiler.profileractioncontract.md)›*

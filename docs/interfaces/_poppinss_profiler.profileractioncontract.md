@@ -1,6 +1,6 @@
-> **[@poppinss/profiler](../README.md)**
+**[@poppinss/profiler](../README.md)**
 
-[Globals](../README.md) / ["Contracts/index"](../modules/_contracts_index_.md) / [ProfilerActionContract](_contracts_index_.profileractioncontract.md) /
+[Globals](../README.md) › [@poppinss/profiler](../modules/_poppinss_profiler.md) › [ProfilerActionContract](_poppinss_profiler.profileractioncontract.md)
 
 # Interface: ProfilerActionContract
 
@@ -15,7 +15,7 @@ the action as `done`.
 
 ### Methods
 
-* [end](_contracts_index_.profileractioncontract.md#end)
+* [end](_poppinss_profiler.profileractioncontract.md#end)
 
 ## Methods
 

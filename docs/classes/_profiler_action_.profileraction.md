@@ -1,6 +1,6 @@
-> **[@poppinss/profiler](../README.md)**
+**[@poppinss/profiler](../README.md)**
 
-[Globals](../README.md) / ["Profiler/Action"](../modules/_profiler_action_.md) / [ProfilerAction](_profiler_action_.profileraction.md) /
+[Globals](../README.md) › ["Profiler/Action"](../modules/_profiler_action_.md) › [ProfilerAction](_profiler_action_.profileraction.md)
 
 # Class: ProfilerAction
 
@@ -26,15 +26,15 @@ get the instance of action using [ProfilerRow](_profiler_row_.profilerrow.md).
 
 ###  constructor
 
-\+ **new ProfilerAction**(`_rowId`: string, `_action`: string, `_subscriber?`: [ProfilerSubscriber](../modules/_contracts_index_.md#profilersubscriber), `_data?`: any): *[ProfilerAction](_profiler_action_.profileraction.md)*
+\+ **new ProfilerAction**(`_label`: string, `_parentId?`: undefined | string, `_subscriber?`: [ProfilerSubscriber](../modules/_poppinss_profiler.md#profilersubscriber), `_data?`: any): *[ProfilerAction](_profiler_action_.profileraction.md)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`_rowId` | string |
-`_action` | string |
-`_subscriber?` | [ProfilerSubscriber](../modules/_contracts_index_.md#profilersubscriber) |
+`_label` | string |
+`_parentId?` | undefined \| string |
+`_subscriber?` | [ProfilerSubscriber](../modules/_poppinss_profiler.md#profilersubscriber) |
 `_data?` | any |
 
 **Returns:** *[ProfilerAction](_profiler_action_.profileraction.md)*

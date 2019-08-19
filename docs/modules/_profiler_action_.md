@@ -1,6 +1,6 @@
-> **[@poppinss/profiler](../README.md)**
+**[@poppinss/profiler](../README.md)**
 
-[Globals](../README.md) / ["Profiler/Action"](_profiler_action_.md) /
+[Globals](../README.md) › ["Profiler/Action"](_profiler_action_.md)
 
 # External module: "Profiler/Action"
 
