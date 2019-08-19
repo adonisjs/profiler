@@ -15,11 +15,11 @@ test.group('Profiler action', () => {
     let logPacket: any = null
     const subscriber = (log) => (logPacket = log)
 
-    const action = new ProfilerAction('123', 'render:view', subscriber, {})
+    const action = new ProfilerAction('render:view', '123', subscriber, {})
     action.end()
 
-    assert.equal(logPacket.action, 'render:view')
-    assert.equal(logPacket.row_id, '123')
+    assert.equal(logPacket.label, 'render:view')
+    assert.equal(logPacket.parent_id, '123')
     assert.deepEqual(logPacket.data, {})
     assert.equal(logPacket.type, 'action')
     assert.isDefined(logPacket.timestamp)
@@ -30,11 +30,11 @@ test.group('Profiler action', () => {
     let logPacket: any = null
     const subscriber = (log) => (logPacket = log)
 
-    const action = new ProfilerAction('123', 'render:view', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
     action.end()
 
-    assert.equal(logPacket.action, 'render:view')
-    assert.equal(logPacket.row_id, '123')
+    assert.equal(logPacket.label, 'render:view')
+    assert.equal(logPacket.parent_id, '123')
     assert.deepEqual(logPacket.data, { id: 1 })
     assert.equal(logPacket.type, 'action')
     assert.isDefined(logPacket.timestamp)
@@ -45,11 +45,11 @@ test.group('Profiler action', () => {
     let logPacket: any = null
     const subscriber = (log) => (logPacket = log)
 
-    const action = new ProfilerAction('123', 'render:view', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
     action.end({ name: 'virk' })
 
-    assert.equal(logPacket.action, 'render:view')
-    assert.equal(logPacket.row_id, '123')
+    assert.equal(logPacket.label, 'render:view')
+    assert.equal(logPacket.parent_id, '123')
     assert.deepEqual(logPacket.data, { id: 1, name: 'virk' })
     assert.equal(logPacket.type, 'action')
     assert.isDefined(logPacket.timestamp)
@@ -59,15 +59,25 @@ test.group('Profiler action', () => {
   test('raise error when end is called twice', (assert) => {
     const subscriber = () => {}
 
-    const action = new ProfilerAction('123', 'render:view', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
     action.end({ name: 'virk' })
 
     const fn = () => action.end()
     assert.throws(fn, 'attempt to end profiler action twice')
   })
 
-  test('do not emit when subscriber is not defined', () => {
-    const action = new ProfilerAction('123', 'render:view', undefined, { id: 1 })
-    action.end({ name: 'virk' })
+  test('get log packet for action without parent row', (assert) => {
+    let logPacket: any = null
+    const subscriber = (log) => (logPacket = log)
+
+    const action = new ProfilerAction('render:view', undefined, subscriber, {})
+    action.end()
+
+    assert.equal(logPacket.label, 'render:view')
+    assert.isUndefined(logPacket.parent_id)
+    assert.deepEqual(logPacket.data, {})
+    assert.equal(logPacket.type, 'action')
+    assert.isDefined(logPacket.timestamp)
+    assert.isDefined(logPacket.duration)
   })
 })

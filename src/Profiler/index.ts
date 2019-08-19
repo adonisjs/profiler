@@ -12,13 +12,16 @@
  */
 
 import { ProfilerRow } from './Row'
-import { dummyRow } from './Dummy'
+import { dummyRow, dummyAction } from './Dummy'
+import { Profile } from './Profile'
+import { ProfilerAction } from './Action'
 
 import {
   ProfilerContract,
   ProfilerConfig,
   ProfilerSubscriber,
   ProfilerRowContract,
+  ProfilerActionContract,
 } from '../Contracts'
 
 /**
@@ -26,7 +29,7 @@ import {
  * rows and actions. In case of blacklisted actions, dummy
  * implementations are returned, resulting in noop.
  */
-export class Profiler implements ProfilerContract {
+export class Profiler extends Profile implements ProfilerContract {
   /**
    * Subscribe to listen for events
    */
@@ -38,6 +41,8 @@ export class Profiler implements ProfilerContract {
   private _config: ProfilerConfig
 
   constructor (config: Partial<ProfilerConfig>) {
+    super()
+
     this._config = Object.assign({
       enabled: true,
       whitelist: [],
@@ -46,11 +51,20 @@ export class Profiler implements ProfilerContract {
   }
 
   /**
+   * Returns the action to be used for timing functions
+   */
+  protected $getAction (action: string, data?: any): ProfilerActionContract {
+    return this.isEnabled(action)
+      ? new ProfilerAction(action, undefined, this.subscriber, data)
+      : dummyAction
+  }
+
+  /**
    * Returns a boolean telling if profiler is enabled for
    * a given `action` or `label` or not?
    */
   public isEnabled (labelOrAction: string): boolean {
-    if (!this._config.enabled) {
+    if (!this._config.enabled || !this.subscriber) {
       return false
     }
 

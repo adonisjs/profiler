@@ -14,8 +14,9 @@
 import * as cuid from 'cuid'
 import { Exception } from '@poppinss/utils'
 
-import { dummyAction, dummyRow } from './Dummy'
+import { Profile } from './Profile'
 import { ProfilerAction } from './Action'
+import { dummyAction, dummyRow } from './Dummy'
 
 import {
   ProfilerContract,
@@ -28,7 +29,7 @@ import {
  * Profiler row class is used to group profiling actions together. Any
  * number of nested rows can be created.
  */
-export class ProfilerRow implements ProfilerRowContract {
+export class ProfilerRow extends Profile implements ProfilerRowContract {
   private _id = cuid()
   private _timestamp = Date.now()
   private _start = process.hrtime()
@@ -39,7 +40,9 @@ export class ProfilerRow implements ProfilerRowContract {
     private _manager: ProfilerContract,
     private _data?: any,
     private _parentId?: string,
-  ) {}
+  ) {
+    super()
+  }
 
   /**
    * Makes the log packet for the log row
@@ -57,11 +60,15 @@ export class ProfilerRow implements ProfilerRowContract {
   }
 
   /**
-   * Returns the action instance for a given action and data
+   * Returns the action instance to be used by the [[Profile]] class
    */
-  private _getAction (action: string, data?: any) {
+  protected $getAction (action: string, data?: any): ProfilerActionContract {
+    if (this._ended) {
+      throw new Exception('cannot profile after parent row has been ended')
+    }
+
     return this._manager.isEnabled(action)
-      ? new ProfilerAction(this._id, action, this._manager.subscriber, data)
+      ? new ProfilerAction(action, this._id, this._manager.subscriber, data)
       : dummyAction
   }
 
@@ -73,69 +80,10 @@ export class ProfilerRow implements ProfilerRowContract {
   }
 
   /**
-   * Get a new profiler action instance to time your code. Make sure
-   * to call the `end` function, when manually managing the actions
-   */
-  public profile<T extends any> (action: string, data: any, cb: (() => T)): T
-  public profile (action: string, data?: any): ProfilerActionContract
-  public profile<T extends any> (action: string, data?: any, cb?: (() => T)): ProfilerActionContract | T {
-    if (this._ended) {
-      throw new Exception('cannot profile after parent row has been ended')
-    }
-
-    const profilerAction = this._getAction(action, data)
-    if (typeof (cb) === 'function') {
-      try {
-        const result = cb()
-        profilerAction.end()
-        return result
-      } catch (error) {
-        profilerAction.end({ error })
-        throw error
-      }
-    }
-
-    return profilerAction
-  }
-
-  /**
-   * Same as [[this.profile]] but async
-   */
-  public async profileAsync<T extends any> (action: string, data: any, cb: (() => Promise<T>)): Promise<T>
-  public async profileAsync (action: string, data?: any): Promise<ProfilerActionContract>
-  public async profileAsync<T extends any> (
-    action: string,
-    data?: any,
-    cb?: (() => Promise<T>),
-  ): Promise<ProfilerActionContract | T> {
-    if (this._ended) {
-      throw new Exception('cannot profile after parent row has been ended')
-    }
-
-    const profilerAction = this._getAction(action, data)
-    if (typeof (cb) === 'function') {
-      try {
-        const result = await cb()
-        profilerAction.end()
-        return result
-      } catch (error) {
-        profilerAction.end({ error })
-        throw error
-      }
-    }
-
-    return profilerAction
-  }
-
-  /**
    * End the profiler instance by emitting end packet. After
    * this all profiling calls will be considered overflows
    */
   public end (data?: any) {
-    if (!this._manager.subscriber) {
-      return
-    }
-
     /**
      * Raise error when end has been called already
      */
@@ -158,7 +106,7 @@ export class ProfilerRow implements ProfilerRowContract {
     /**
      * Invoke subscriber
      */
-    this._manager.subscriber(this._makeLogPacket())
+    this._manager.subscriber!(this._makeLogPacket())
   }
 
   /**

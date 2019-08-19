@@ -25,8 +25,8 @@ export class ProfilerAction {
   private _ended = false
 
   constructor (
-    private _rowId: string,
-    private _action: string,
+    private _label: string,
+    private _parentId?: string,
     private _subscriber?: ProfilerSubscriber,
     private _data?: any,
   ) {}
@@ -36,9 +36,9 @@ export class ProfilerAction {
    */
   private _makePacket (): ProfilerActionDataPacket {
     return {
-      row_id: this._rowId,
+      parent_id: this._parentId,
       type: 'action',
-      action: this._action,
+      label: this._label,
       timestamp: this._timestamp,
       duration: process.hrtime(this._start),
       data: this._data || {},
@@ -49,10 +49,6 @@ export class ProfilerAction {
    * End profiling action.
    */
   public end (data?: any) {
-    if (!this._subscriber) {
-      return
-    }
-
     /**
      * Raise error when end is called twice. Their are high probabilities of
      * end getting called twice
@@ -66,10 +62,13 @@ export class ProfilerAction {
      */
     this._ended = true
 
+    /**
+     * Merge inline data if defined
+     */
     if (data) {
       this._data = Object.assign({}, this._data, data)
     }
 
-    this._subscriber(this._makePacket())
+    this._subscriber!(this._makePacket())
   }
 }

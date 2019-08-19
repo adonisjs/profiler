@@ -15,12 +15,12 @@
  * Shape of data packet for a single action
  */
 export type ProfilerActionDataPacket = {
-  row_id: string,
   type: 'action',
-  action: string,
+  label: string,
   timestamp: number,
   duration: [number, number],
   data: any,
+  parent_id?: string,
 }
 
 /**
@@ -50,12 +50,9 @@ export interface ProfilerActionContract {
 }
 
 /**
- * Profiler row can spawn new actions or new rows
+ * Exposes the API to time functions
  */
-export interface ProfilerRowContract {
-  hasParent: boolean,
-  child (label: string, data?: any): ProfilerRowContract,
-
+export interface ProfileContract {
   profile<T extends any> (action: string, data: any, cb: (() => T)): T,
   profile (action: string, data?: any): ProfilerActionContract,
   profile<T extends any> (action: string, data?: any, cb?: (() => T)): ProfilerActionContract | T,
@@ -67,6 +64,14 @@ export interface ProfilerRowContract {
     data?: any,
     cb?: (() => Promise<T>),
   ): Promise<ProfilerActionContract | T>,
+}
+
+/**
+ * Profiler row can spawn new actions or new rows
+ */
+export interface ProfilerRowContract extends ProfileContract {
+  hasParent: boolean,
+  child (label: string, data?: any): ProfilerRowContract,
 
   end (data?: any): void,
 }
@@ -74,7 +79,7 @@ export interface ProfilerRowContract {
 /**
  * Main profiler
  */
-export interface ProfilerContract {
+export interface ProfilerContract extends ProfileContract {
   subscriber?: ProfilerSubscriber,
   isEnabled (labelOrAction: string): boolean,
   create (label: string, data?: any): ProfilerRowContract,

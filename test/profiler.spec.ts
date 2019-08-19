@@ -13,11 +13,13 @@ import { Profiler } from '../src/Profiler'
 test.group('Profiler | isEnabled', () => {
   test('return false from isEnabled when enabled inside config is set to false', (assert) => {
     const profiler = new Profiler({ enabled: false })
+    profiler.subscribe(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
   test('return true from isEnabled when whitelist is an empty array', (assert) => {
     const profiler = new Profiler({ enabled: true })
+    profiler.subscribe(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
@@ -27,6 +29,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: [],
       blacklist: ['http request'],
     })
+    profiler.subscribe(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
@@ -36,6 +39,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['foo'],
       blacklist: [],
     })
+    profiler.subscribe(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
@@ -45,6 +49,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['http request'],
       blacklist: [],
     })
+    profiler.subscribe(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
@@ -54,6 +59,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['http request'],
       blacklist: ['http request'],
     })
+    profiler.subscribe(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 })
@@ -94,9 +100,9 @@ test.group('Profile | profile', () => {
     req.end()
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.deepEqual(packets[0].data, {})
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'http_request')
@@ -123,9 +129,9 @@ test.group('Profile | profile', () => {
     req.end()
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.deepEqual(packets[0].data, {})
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'core')
@@ -178,6 +184,7 @@ test.group('Profile | profile', () => {
 
   test('return true when row has a parent', (assert) => {
     const profiler = new Profiler({ enabled: true })
+    profiler.subscribe(() => {})
 
     const req = profiler.create('http_request', { id: '123' })
     assert.isFalse(req.hasParent)
@@ -202,9 +209,9 @@ test.group('Profile | profile', () => {
     req.end()
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.deepEqual(packets[0].data, {})
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'http_request')
@@ -233,9 +240,9 @@ test.group('Profile | profile', () => {
     }
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.equal(packets[0].data.error.message, 'what?')
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'http_request')
@@ -259,9 +266,9 @@ test.group('Profile | profile', () => {
     req.end()
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.deepEqual(packets[0].data, {})
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'http_request')
@@ -290,14 +297,77 @@ test.group('Profile | profile', () => {
     }
 
     assert.equal(packets[0].type, 'action')
-    assert.equal(packets[0].action, 'find_route')
+    assert.equal(packets[0].label, 'find_route')
     assert.equal(packets[0].data.error.message, 'what?')
-    assert.equal(packets[0].row_id, packets[1].id)
+    assert.equal(packets[0].parent_id, packets[1].id)
 
     assert.equal(packets[1].type, 'row')
     assert.equal(packets[1].label, 'http_request')
     assert.deepEqual(packets[1].data, { id: '123' })
     assert.isUndefined(packets[1].parent_id)
+  })
+
+  test('profile without a row', (assert) => {
+    let packets: any[] = []
+
+    function subscriber (node) {
+      packets.push(node)
+    }
+
+    const profiler = new Profiler({})
+    profiler.subscribe(subscriber)
+
+    const child = profiler.profile('find_route')
+    child.end()
+
+    assert.lengthOf(packets, 1)
+    assert.equal(packets[0].type, 'action')
+    assert.equal(packets[0].label, 'find_route')
+    assert.deepEqual(packets[0].data, {})
+    assert.isUndefined(packets[0].parent_id)
+  })
+
+  test('profile callback without a row', (assert) => {
+    let packets: any[] = []
+
+    function subscriber (node) {
+      packets.push(node)
+    }
+
+    const profiler = new Profiler({})
+    profiler.subscribe(subscriber)
+
+    profiler.profile('find_route', {}, () => {
+    })
+
+    assert.lengthOf(packets, 1)
+    assert.equal(packets[0].type, 'action')
+    assert.equal(packets[0].label, 'find_route')
+    assert.deepEqual(packets[0].data, {})
+    assert.isUndefined(packets[0].parent_id)
+  })
+
+  test('profile async callback without a row', async (assert) => {
+    let packets: any[] = []
+
+    function subscriber (node) {
+      packets.push(node)
+    }
+
+    const profiler = new Profiler({})
+    profiler.subscribe(subscriber)
+
+    try {
+      await profiler.profileAsync('find_route', {}, async () => {
+        throw new Error('foo')
+      })
+    } catch (error) {}
+
+    assert.lengthOf(packets, 1)
+    assert.equal(packets[0].type, 'action')
+    assert.equal(packets[0].label, 'find_route')
+    assert.equal(packets[0].data.error.message, 'foo')
+    assert.isUndefined(packets[0].parent_id)
   })
 })
 
