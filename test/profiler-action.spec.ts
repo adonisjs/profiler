@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-import * as test from 'japa'
+import test from 'japa'
 import { ProfilerAction } from '../src/Profiler/Action'
 
 test.group('Profiler action', () => {
   test('get log packet for a given action', (assert) => {
     let logPacket: any = null
-    const subscriber = (log) => (logPacket = log)
+    const subscriber = (log: any) => (logPacket = log)
 
     const action = new ProfilerAction('render:view', '123', subscriber, {})
     action.end()
@@ -28,7 +28,7 @@ test.group('Profiler action', () => {
 
   test('add data to log packet', (assert) => {
     let logPacket: any = null
-    const subscriber = (log) => (logPacket = log)
+    const subscriber = (log: any) => (logPacket = log)
 
     const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
     action.end()
@@ -43,7 +43,7 @@ test.group('Profiler action', () => {
 
   test('merge end data with original action data', (assert) => {
     let logPacket: any = null
-    const subscriber = (log) => (logPacket = log)
+    const subscriber = (log: any) => (logPacket = log)
 
     const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
     action.end({ name: 'virk' })
@@ -68,7 +68,7 @@ test.group('Profiler action', () => {
 
   test('get log packet for action without parent row', (assert) => {
     let logPacket: any = null
-    const subscriber = (log) => (logPacket = log)
+    const subscriber = (log: any) => (logPacket = log)
 
     const action = new ProfilerAction('render:view', undefined, subscriber, {})
     action.end()

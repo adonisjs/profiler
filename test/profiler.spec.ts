@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import * as test from 'japa'
+import test from 'japa'
 import { Profiler } from '../src/Profiler'
 
 test.group('Profiler | isEnabled', () => {
@@ -68,7 +68,7 @@ test.group('Profile | profile', () => {
   test('create a profiler row', (assert) => {
     let packet: any = null
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packet = node
     }
 
@@ -87,7 +87,7 @@ test.group('Profile | profile', () => {
   test('create a profiler row and action', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -113,7 +113,7 @@ test.group('Profile | profile', () => {
   test('create a profiler row with nested row', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -147,7 +147,7 @@ test.group('Profile | profile', () => {
   test('raise error when end is called twice on row', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -170,7 +170,7 @@ test.group('Profile | profile', () => {
   test('merge end data with actual data', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -196,7 +196,7 @@ test.group('Profile | profile', () => {
   test('profile callback', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -222,7 +222,7 @@ test.group('Profile | profile', () => {
   test('report callback errors', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -253,7 +253,7 @@ test.group('Profile | profile', () => {
   test('profile async callback', async (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -279,7 +279,7 @@ test.group('Profile | profile', () => {
   test('report async callback errors', async (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -310,7 +310,7 @@ test.group('Profile | profile', () => {
   test('profile without a row', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -330,7 +330,7 @@ test.group('Profile | profile', () => {
   test('profile callback without a row', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -350,7 +350,7 @@ test.group('Profile | profile', () => {
   test('profile async callback without a row', async (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -375,7 +375,7 @@ test.group('Profile | dummy profile', () => {
   test('return dummy profiler instance when enabled is false', (assert) => {
     let packet: any = null
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packet = node
     }
 
@@ -391,7 +391,7 @@ test.group('Profile | dummy profile', () => {
   test('return dummy action when action is blacklisted', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -413,7 +413,7 @@ test.group('Profile | dummy profile', () => {
   test('return dummy row when it\'s black listed', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -438,7 +438,7 @@ test.group('Profile | dummy profile', () => {
   test('return dummy action within dummy action', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -469,7 +469,7 @@ test.group('Profile | dummy profile', () => {
   test('profile callback and return its output', (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 
@@ -489,7 +489,7 @@ test.group('Profile | dummy profile', () => {
   test('profile async callback and return its output', async (assert) => {
     let packets: any[] = []
 
-    function subscriber (node) {
+    function subscriber (node: any) {
       packets.push(node)
     }
 

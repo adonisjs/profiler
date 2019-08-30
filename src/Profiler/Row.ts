@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-import * as cuid from 'cuid'
+import cuid from 'cuid'
 import { Exception } from '@poppinss/utils'
 
 import { Profile } from './Profile'
