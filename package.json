@@ -1,6 +1,6 @@
 {
   "name": "@poppinss/profiler",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Profiler to time function calls in AdonisJs with context",
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
