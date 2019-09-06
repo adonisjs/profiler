@@ -1,15 +1,17 @@
 /**
- * @module @poppinss/profiler
+ * @module @adonisjs/profiler
  */
 
 /*
- * @poppinss/profiler
- *
- * (c) Harminder Virk <virk@adonisjs.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+* @adonisjs/profiler
+*
+* (c) Harminder Virk <virk@adonisjs.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
+/// <reference path="../../adonis-typings/profiler.ts" />
 
 import { ProfilerRow } from './Row'
 import { dummyRow, dummyAction } from './Dummy'
@@ -22,7 +24,7 @@ import {
   ProfilerSubscriber,
   ProfilerRowContract,
   ProfilerActionContract,
-} from '../Contracts'
+} from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Profiler exposes the public interface to create new profiling

@@ -1,17 +1,22 @@
 /**
- * @module @poppinss/profiler
+ * @module @adonisjs/profiler
  */
 
 /*
- * @poppinss/profiler
- *
- * (c) Harminder Virk <virk@adonisjs.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+* @adonisjs/profiler
+*
+* (c) Harminder Virk <virk@adonisjs.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
-import { ProfilerRowContract, ProfilerActionContract } from '../Contracts'
+/// <reference path="../../adonis-typings/profiler.ts" />
+
+import {
+  ProfilerRowContract,
+  ProfilerActionContract,
+} from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Dummy action is a noop implementation of [[ProfileActionContract]]. When

@@ -1,5 +1,9 @@
+/**
+ * @module @adonisjs/profiler
+ */
+
 /*
-* @poppinss/profiler
+* @adonisjs/profiler
 *
 * (c) Harminder Virk <virk@adonisjs.com>
 *
@@ -7,7 +11,8 @@
 * file that was distributed with this source code.
 */
 
-import { ProfilerActionContract, ProfileContract } from '../Contracts'
+/// <reference path="../../adonis-typings/profiler.ts" />
+import { ProfilerActionContract, ProfileContract } from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Abstract class to be extended to add support for timing functions.

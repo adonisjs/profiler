@@ -1,18 +1,23 @@
 /**
- * @module @poppinss/profiler
+ * @module @adonisjs/profiler
  */
 
 /*
- * @poppinss/profiler
- *
- * (c) Harminder Virk <virk@adonisjs.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+* @adonisjs/profiler
+*
+* (c) Harminder Virk <virk@adonisjs.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
+/// <reference path="../../adonis-typings/profiler.ts" />
 
 import { Exception } from '@poppinss/utils'
-import { ProfilerActionDataPacket, ProfilerSubscriber } from '../Contracts'
+import {
+  ProfilerActionDataPacket,
+  ProfilerSubscriber,
+} from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Profiler action is used to profile the timing of a given action. An

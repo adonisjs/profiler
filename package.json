@@ -2,6 +2,13 @@
   "name": "@poppinss/profiler",
   "version": "1.1.1",
   "description": "Profiler to time function calls in AdonisJs with context",
+  "files": [
+    "build/adonis-typings",
+    "build/providers",
+    "build/src",
+    "build/standlone.d.ts",
+    "build/standlone.js"
+  ],
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
     "pretest": "npm run lint",
@@ -9,7 +16,7 @@
     "lint": "tslint --project tsconfig.json",
     "clean": "del build",
     "compile": "npm run lint && npm run clean && tsc",
-    "build": "npm run compile && typedoc --theme markdown --excludePrivate --mdHideSources && git add docs",
+    "build": "npm run compile && typedoc --theme markdown --excludePrivate --HideSources && git add docs",
     "commit": "git-cz",
     "release": "np",
     "version": "npm run build"
@@ -22,6 +29,7 @@
   "author": "virk,poppinss",
   "license": "MIT",
   "devDependencies": {
+    "@adonisjs/fold": "^6.1.6",
     "@adonisjs/mrm-preset": "^2.1.0",
     "@types/node": "^12.7.4",
     "benchmark": "^2.1.4",
@@ -49,12 +57,6 @@
       ".ts"
     ]
   },
-  "main": "build/index.js",
-  "files": [
-    "build/src",
-    "build/index.d.ts",
-    "build/index.js"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "doctoc README.md --title='## Table of contents' && git add README.md",

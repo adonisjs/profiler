@@ -1,15 +1,17 @@
 /**
- * @module @poppinss/profiler
+ * @module @adonisjs/profiler
  */
 
 /*
- * @poppinss/profiler
- *
- * (c) Harminder Virk <virk@adonisjs.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+* @adonisjs/profiler
+*
+* (c) Harminder Virk <virk@adonisjs.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
+/// <reference path="../../adonis-typings/profiler.ts" />
 
 import cuid from 'cuid'
 import { Exception } from '@poppinss/utils'
@@ -23,7 +25,7 @@ import {
   ProfilerRowContract,
   ProfilerRowDataPacket,
   ProfilerActionContract,
-} from '../Contracts'
+} from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Profiler row class is used to group profiling actions together. Any
