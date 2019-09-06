@@ -13,3 +13,4 @@
 * ["src/Profiler/Profile"](modules/_src_profiler_profile_.md)
 * ["src/Profiler/Row"](modules/_src_profiler_row_.md)
 * ["src/Profiler/index"](modules/_src_profiler_index_.md)
+* ["standalone"](modules/_standalone_.md)
