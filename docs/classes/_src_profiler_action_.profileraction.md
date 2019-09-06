@@ -1,4 +1,4 @@
-**[@poppinss/profiler](../README.md)**
+**[@adonisjs/profiler](../README.md)**
 
 [Globals](../README.md) › ["src/Profiler/Action"](../modules/_src_profiler_action_.md) › [ProfilerAction](_src_profiler_action_.profileraction.md)
 

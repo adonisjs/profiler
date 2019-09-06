@@ -1,4 +1,4 @@
-**[@poppinss/profiler](../README.md)**
+**[@adonisjs/profiler](../README.md)**
 
 [Globals](../README.md) › ["providers/ProfilerProvider"](../modules/_providers_profilerprovider_.md) › [ProfilerProvider](_providers_profilerprovider_.profilerprovider.md)
 

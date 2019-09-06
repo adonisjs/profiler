@@ -1,4 +1,4 @@
-**[@poppinss/profiler](README.md)**
+**[@adonisjs/profiler](README.md)**
 
 [Globals](README.md)
 
