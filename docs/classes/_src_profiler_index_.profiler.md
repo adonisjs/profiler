@@ -42,13 +42,13 @@ implementations are returned, resulting in noop.
 
 ###  constructor
 
-\+ **new Profiler**(`config`: Partial‹ProfilerConfig›): *[Profiler](_src_profiler_index_.profiler.md)*
+\+ **new Profiler**(`config`: Partial‹ProfilerConfigContract›): *[Profiler](_src_profiler_index_.profiler.md)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`config` | Partial‹ProfilerConfig› |
+`config` | Partial‹ProfilerConfigContract› |
 
 **Returns:** *[Profiler](_src_profiler_index_.profiler.md)*
 

@@ -20,7 +20,7 @@
 
 ### Methods
 
-* [$registerProfiler](_providers_profilerprovider_.profilerprovider.md#protected-$registerprofiler)
+* [register](_providers_profilerprovider_.profilerprovider.md#register)
 
 ## Constructors
 
@@ -44,8 +44,8 @@ Name | Type |
 
 ## Methods
 
-### `Protected` $registerProfiler
+###  register
 
-▸ **$registerProfiler**(): *void*
+▸ **register**(): *void*
 
 **Returns:** *void*
