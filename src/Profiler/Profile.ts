@@ -12,6 +12,7 @@
 */
 
 /// <reference path="../../adonis-typings/profiler.ts" />
+
 import { ProfilerActionContract, ProfileContract } from '@ioc:Adonis/Core/Profiler'
 
 /**

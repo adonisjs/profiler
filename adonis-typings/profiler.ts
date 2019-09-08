@@ -90,7 +90,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Profiler config
    */
-  export type ProfilerConfig = {
+  export type ProfilerConfigContract = {
     enabled: boolean,
     whitelist: string[],
     blacklist: string[],

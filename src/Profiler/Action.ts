@@ -14,10 +14,7 @@
 /// <reference path="../../adonis-typings/profiler.ts" />
 
 import { Exception } from '@poppinss/utils'
-import {
-  ProfilerActionDataPacket,
-  ProfilerSubscriber,
-} from '@ioc:Adonis/Core/Profiler'
+import { ProfilerActionDataPacket, ProfilerSubscriber } from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Profiler action is used to profile the timing of a given action. An

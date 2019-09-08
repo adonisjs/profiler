@@ -14,16 +14,16 @@
 /// <reference path="../../adonis-typings/profiler.ts" />
 
 import { ProfilerRow } from './Row'
-import { dummyRow, dummyAction } from './Dummy'
 import { Profile } from './Profile'
 import { ProfilerAction } from './Action'
+import { dummyRow, dummyAction } from './Dummy'
 
 import {
   ProfilerContract,
-  ProfilerConfig,
   ProfilerSubscriber,
   ProfilerRowContract,
   ProfilerActionContract,
+  ProfilerConfigContract,
 } from '@ioc:Adonis/Core/Profiler'
 
 /**
@@ -40,9 +40,9 @@ export class Profiler extends Profile implements ProfilerContract {
   /**
    * Profiler config
    */
-  private _config: ProfilerConfig
+  private _config: ProfilerConfigContract
 
-  constructor (config: Partial<ProfilerConfig>) {
+  constructor (config: Partial<ProfilerConfigContract>) {
     super()
 
     this._config = Object.assign({

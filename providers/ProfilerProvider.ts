@@ -17,10 +17,10 @@ import { Profiler } from '../src/Profiler'
 export default class ProfilerProvider {
   constructor (protected $container: IocContract) {}
 
-  protected $registerProfiler () {
+  public register () {
     this.$container.singleton('Adonis/Core/Profiler', () => {
-      const Config = this.$container.use('Adonis/Core/Config')
-      return new Profiler(Config.get('app.profiler', {}))
+      const config = this.$container.use('Adonis/Core/Config').get('app.profiler', {})
+      return new Profiler(config)
     })
   }
 }
