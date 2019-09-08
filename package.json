@@ -6,8 +6,8 @@
     "build/adonis-typings",
     "build/providers",
     "build/src",
-    "build/standlone.d.ts",
-    "build/standlone.js"
+    "build/standalone.d.ts",
+    "build/standalone.js"
   ],
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
@@ -69,7 +69,7 @@
     }
   },
   "dependencies": {
-    "@adonisjs/utils": "^1.0.6",
+    "@poppinss/utils": "^1.0.7",
     "cuid": "^2.1.6"
   },
   "np": {
