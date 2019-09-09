@@ -1,6 +1,6 @@
 **[@adonisjs/profiler](../README.md)**
 
-[Globals](../README.md) › ["src/Profiler/Row"](_src_profiler_row_.md)
+[Globals](../README.md) › [&quot;src/Profiler/Row&quot;](_src_profiler_row_.md)
 
 # External module: "src/Profiler/Row"
 

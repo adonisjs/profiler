@@ -1,6 +1,6 @@
 **[@adonisjs/profiler](../README.md)**
 
-[Globals](../README.md) › ["src/Profiler/Row"](../modules/_src_profiler_row_.md) › [ProfilerRow](_src_profiler_row_.profilerrow.md)
+[Globals](../README.md) › [&quot;src/Profiler/Row&quot;](../modules/_src_profiler_row_.md) › [ProfilerRow](_src_profiler_row_.profilerrow.md)
 
 # Class: ProfilerRow
 
@@ -49,7 +49,7 @@ Name | Type |
 `_label` | string |
 `_manager` | ProfilerContract |
 `_data?` | any |
-`_parentId?` | undefined \| string |
+`_parentId?` | undefined &#124; string |
 
 **Returns:** *[ProfilerRow](_src_profiler_row_.profilerrow.md)*
 

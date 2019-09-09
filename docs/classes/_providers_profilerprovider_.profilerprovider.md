@@ -1,6 +1,6 @@
 **[@adonisjs/profiler](../README.md)**
 
-[Globals](../README.md) › ["providers/ProfilerProvider"](../modules/_providers_profilerprovider_.md) › [ProfilerProvider](_providers_profilerprovider_.profilerprovider.md)
+[Globals](../README.md) › [&quot;providers/ProfilerProvider&quot;](../modules/_providers_profilerprovider_.md) › [ProfilerProvider](_providers_profilerprovider_.profilerprovider.md)
 
 # Class: ProfilerProvider
 

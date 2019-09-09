@@ -1,6 +1,6 @@
 **[@adonisjs/profiler](../README.md)**
 
-[Globals](../README.md) › ["src/Profiler/Action"](../modules/_src_profiler_action_.md) › [ProfilerAction](_src_profiler_action_.profileraction.md)
+[Globals](../README.md) › [&quot;src/Profiler/Action&quot;](../modules/_src_profiler_action_.md) › [ProfilerAction](_src_profiler_action_.profileraction.md)
 
 # Class: ProfilerAction
 
@@ -33,7 +33,7 @@ get the instance of action using [ProfilerRow](_src_profiler_row_.profilerrow.md
 Name | Type |
 ------ | ------ |
 `_label` | string |
-`_parentId?` | undefined \| string |
+`_parentId?` | undefined &#124; string |
 `_subscriber?` | ProfilerSubscriber |
 `_data?` | any |
 

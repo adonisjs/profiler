@@ -1,6 +1,6 @@
 **[@adonisjs/profiler](../README.md)**
 
-[Globals](../README.md) › ["src/Profiler/index"](../modules/_src_profiler_index_.md) › [Profiler](_src_profiler_index_.profiler.md)
+[Globals](../README.md) › [&quot;src/Profiler/index&quot;](../modules/_src_profiler_index_.md) › [Profiler](_src_profiler_index_.profiler.md)
 
 # Class: Profiler
 

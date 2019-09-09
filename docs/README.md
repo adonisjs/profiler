@@ -2,6 +2,8 @@
 
 [Globals](README.md)
 
+# @adonisjs/profiler
+
 ## Index
 
 ### External modules
