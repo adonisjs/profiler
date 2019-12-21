@@ -40,12 +40,12 @@ export class Profiler extends Profile implements ProfilerContract {
   /**
    * Profiler config
    */
-  private _config: ProfilerConfigContract
+  private config: ProfilerConfigContract
 
   constructor (config: Partial<ProfilerConfigContract>) {
     super()
 
-    this._config = Object.assign({
+    this.config = Object.assign({
       enabled: true,
       whitelist: [],
       blacklist: [],
@@ -66,22 +66,22 @@ export class Profiler extends Profile implements ProfilerContract {
    * a given `action` or `label` or not?
    */
   public isEnabled (labelOrAction: string): boolean {
-    if (!this._config.enabled || !this.subscriber) {
+    if (!this.config.enabled || !this.subscriber) {
       return false
     }
 
     /**
      * If white list is empty, then check for blacklist
      */
-    if (this._config.whitelist.length === 0) {
-      return this._config.blacklist.indexOf(labelOrAction) === -1
+    if (this.config.whitelist.length === 0) {
+      return this.config.blacklist.indexOf(labelOrAction) === -1
     }
 
     /**
      * Otherwise check for whitelist only. We can check for `whitelist` and
      * `blacklist` both here, but not 100% sure.
      */
-    return this._config.whitelist.indexOf(labelOrAction) > -1
+    return this.config.whitelist.indexOf(labelOrAction) > -1
   }
 
   /**

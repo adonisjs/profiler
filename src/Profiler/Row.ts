@@ -32,16 +32,16 @@ import {
  * number of nested rows can be created.
  */
 export class ProfilerRow extends Profile implements ProfilerRowContract {
-  private _id = cuid()
-  private _timestamp = Date.now()
-  private _start = process.hrtime()
-  private _ended = false
+  private id = cuid()
+  private timestamp = Date.now()
+  private start = process.hrtime()
+  private ended = false
 
   constructor (
-    private _label: string,
-    private _manager: ProfilerContract,
-    private _data?: any,
-    private _parentId?: string,
+    private label: string,
+    private manager: ProfilerContract,
+    private data?: any,
+    private parentId?: string,
   ) {
     super()
   }
@@ -49,15 +49,15 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
   /**
    * Makes the log packet for the log row
    */
-  private _makeLogPacket (): ProfilerRowDataPacket {
+  private makeLogPacket (): ProfilerRowDataPacket {
     return {
-      id: this._id,
+      id: this.id,
       type: 'row',
-      label: this._label,
-      parent_id: this._parentId,
-      timestamp: this._timestamp,
-      data: this._data || {},
-      duration: process.hrtime(this._start),
+      label: this.label,
+      parent_id: this.parentId,
+      timestamp: this.timestamp,
+      data: this.data || {},
+      duration: process.hrtime(this.start),
     }
   }
 
@@ -65,12 +65,12 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
    * Returns the action instance to be used by the [[Profile]] class
    */
   protected $getAction (action: string, data?: any): ProfilerActionContract {
-    if (this._ended) {
+    if (this.ended) {
       throw new Exception('cannot profile after parent row has been ended')
     }
 
-    return this._manager.isEnabled(action)
-      ? new ProfilerAction(action, this._id, this._manager.subscriber, data)
+    return this.manager.isEnabled(action)
+      ? new ProfilerAction(action, this.id, this.manager.subscriber, data)
       : dummyAction
   }
 
@@ -78,7 +78,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
    * Returns a boolean telling if a parent exists
    */
   public get hasParent () {
-    return !!this._parentId
+    return !!this.parentId
   }
 
   /**
@@ -89,26 +89,26 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
     /**
      * Raise error when end has been called already
      */
-    if (this._ended) {
+    if (this.ended) {
       throw new Exception('attempt to end profiler row twice')
     }
 
     /**
      * Setting end to true to avoid multiple calls
      */
-    this._ended = true
+    this.ended = true
 
     /**
      * Merge data
      */
     if (data) {
-      this._data = Object.assign({}, this._data, data)
+      this.data = Object.assign({}, this.data, data)
     }
 
     /**
      * Invoke subscriber
      */
-    this._manager.subscriber!(this._makeLogPacket())
+    this.manager.subscriber!(this.makeLogPacket())
   }
 
   /**
@@ -116,8 +116,8 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
    * in the events timeline
    */
   public child (label: string, data?: any): ProfilerRowContract {
-    if (this._manager.isEnabled(label)) {
-      return new ProfilerRow(label, this._manager, data, this._id)
+    if (this.manager.isEnabled(label)) {
+      return new ProfilerRow(label, this.manager, data, this.id)
     }
 
     return dummyRow

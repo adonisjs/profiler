@@ -22,28 +22,28 @@ import { ProfilerActionDataPacket, ProfilerSubscriber } from '@ioc:Adonis/Core/P
  * get the instance of action using [[ProfilerRow]].
  */
 export class ProfilerAction {
-  private _start = process.hrtime()
-  private _timestamp = Date.now()
-  private _ended = false
+  private start = process.hrtime()
+  private timestamp = Date.now()
+  private ended = false
 
   constructor (
-    private _label: string,
-    private _parentId?: string,
-    private _subscriber?: ProfilerSubscriber,
-    private _data?: any,
+    private label: string,
+    private parentId?: string,
+    private subscriber?: ProfilerSubscriber,
+    private data?: any,
   ) {}
 
   /**
    * Make packet for the action
    */
-  private _makePacket (): ProfilerActionDataPacket {
+  private makePacket (): ProfilerActionDataPacket {
     return {
-      parent_id: this._parentId,
+      parent_id: this.parentId,
       type: 'action',
-      label: this._label,
-      timestamp: this._timestamp,
-      duration: process.hrtime(this._start),
-      data: this._data || {},
+      label: this.label,
+      timestamp: this.timestamp,
+      duration: process.hrtime(this.start),
+      data: this.data || {},
     }
   }
 
@@ -55,22 +55,22 @@ export class ProfilerAction {
      * Raise error when end is called twice. Their are high probabilities of
      * end getting called twice
      */
-    if (this._ended) {
+    if (this.ended) {
       throw new Exception('attempt to end profiler action twice')
     }
 
     /**
      * Set the flag
      */
-    this._ended = true
+    this.ended = true
 
     /**
      * Merge inline data if defined
      */
     if (data) {
-      this._data = Object.assign({}, this._data, data)
+      this.data = Object.assign({}, this.data, data)
     }
 
-    this._subscriber!(this._makePacket())
+    this.subscriber!(this.makePacket())
   }
 }

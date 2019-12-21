@@ -30,7 +30,7 @@ class DummyAction implements ProfilerActionContract {
  * of unneccessary `if/else` clauses.
  */
 class DummyRow implements ProfilerRowContract {
-  private _action = new DummyAction()
+  private action = new DummyAction()
 
   public get hasParent () {
     return false
@@ -43,7 +43,7 @@ class DummyRow implements ProfilerRowContract {
       return cb()
     }
 
-    return this._action
+    return this.action
   }
 
   public async profileAsync (action: string, data: any, cb: (() => void)): Promise<void>
@@ -57,7 +57,7 @@ class DummyRow implements ProfilerRowContract {
       return cb()
     }
 
-    return this._action
+    return this.action
   }
 
   public child () {
