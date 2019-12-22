@@ -60,7 +60,7 @@ class DummyRow implements ProfilerRowContract {
     return this.action
   }
 
-  public child () {
+  public create () {
     return this
   }
 

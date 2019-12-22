@@ -47,6 +47,9 @@ declare module '@ioc:Adonis/Core/Profiler' {
    * the action as `done`.
    */
   export interface ProfilerActionContract {
+    /**
+     * End profiling an action
+     */
     end (data?: any): void
   }
 
@@ -54,11 +57,27 @@ declare module '@ioc:Adonis/Core/Profiler' {
    * Exposes the API to time functions
    */
   export interface ProfileContract {
+    /**
+     * Time a function by wrapping it inside the callback
+     */
     profile<T extends any> (action: string, data: any, cb: (() => T)): T,
+
+    /**
+     * Create a profiler action to time a block of code. Make sure to
+     * call `end` on the output of this function
+     */
     profile (action: string, data?: any): ProfilerActionContract,
     profile<T extends any> (action: string, data?: any, cb?: (() => T)): ProfilerActionContract | T,
 
+    /**
+     * Time an async function by wrapping it inside the callback
+     */
     profileAsync<T extends any> (action: string, data: any, cb: (() => Promise<T>)): Promise<T>,
+
+    /**
+     * Create a profiler action to time a block of code. Make sure to
+     * call `end` on the output of this function
+     */
     profileAsync (action: string, data?: any): Promise<ProfilerActionContract>,
     profileAsync<T extends any> (
       action: string,
@@ -72,8 +91,15 @@ declare module '@ioc:Adonis/Core/Profiler' {
    */
   export interface ProfilerRowContract extends ProfileContract {
     hasParent: boolean,
-    child (label: string, data?: any): ProfilerRowContract,
 
+    /**
+     * Create a children row
+     */
+    create (label: string, data?: any): ProfilerRowContract,
+
+    /**
+     * End profiling a row
+     */
     end (data?: any): void,
   }
 
@@ -83,7 +109,15 @@ declare module '@ioc:Adonis/Core/Profiler' {
   export interface ProfilerContract extends ProfileContract {
     processor?: Exclude<ProfilerProcessor, string>,
     isEnabled (labelOrAction: string): boolean,
+
+    /**
+     * Create a new profiler row
+     */
     create (label: string, data?: any): ProfilerRowContract,
+
+    /**
+     * Define a custom processor function
+     */
     process (fn: ProfilerProcessor): void
   }
 

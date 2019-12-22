@@ -115,7 +115,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
    * Get a new child logger. Child logger will emit a new row
    * in the events timeline
    */
-  public child (label: string, data?: any): ProfilerRowContract {
+  public create (label: string, data?: any): ProfilerRowContract {
     if (this.manager.isEnabled(label)) {
       return new ProfilerRow(label, this.manager, data, this.id)
     }

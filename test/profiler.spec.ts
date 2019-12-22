@@ -121,7 +121,7 @@ test.group('Profile | profile', () => {
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
-    const core = req.child('core')
+    const core = req.create('core')
     const child = core.profile('find_route')
 
     child.end()
@@ -189,7 +189,7 @@ test.group('Profile | profile', () => {
     const req = profiler.create('http_request', { id: '123' })
     assert.isFalse(req.hasParent)
 
-    const view = req.child('render_view')
+    const view = req.create('render_view')
     assert.isTrue(view.hasParent)
   })
 
@@ -421,7 +421,7 @@ test.group('Profile | dummy profile', () => {
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
-    const core = req.child('core')
+    const core = req.create('core')
     const child = core.profile('find_route')
 
     child.end()
@@ -446,7 +446,7 @@ test.group('Profile | dummy profile', () => {
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
-    const core = req.child('core')
+    const core = req.create('core')
     const child = core.profile('find_route')
 
     child.end()
@@ -462,7 +462,7 @@ test.group('Profile | dummy profile', () => {
     const req = profiler.create('http_request', { id: '123' })
     assert.isFalse(req.hasParent)
 
-    const view = req.child('render_view')
+    const view = req.create('render_view')
     assert.isFalse(view.hasParent)
   })
 
