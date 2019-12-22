@@ -38,9 +38,9 @@ declare module '@ioc:Adonis/Core/Profiler' {
   }
 
   /**
-   * The subscriber action that listens for logs
+   * The processor action or worker node that listens for the logs
    */
-  export type ProfilerSubscriber = (log: ProfilerActionDataPacket | ProfilerRowDataPacket) => void
+  export type ProfilerProcessor = string | ((log: ProfilerActionDataPacket | ProfilerRowDataPacket) => void)
 
   /**
    * Profiler action just has one method to mark
@@ -81,10 +81,10 @@ declare module '@ioc:Adonis/Core/Profiler' {
    * Main profiler
    */
   export interface ProfilerContract extends ProfileContract {
-    subscriber?: ProfilerSubscriber,
+    processor?: Exclude<ProfilerProcessor, string>,
     isEnabled (labelOrAction: string): boolean,
     create (label: string, data?: any): ProfilerRowContract,
-    subscribe (fn: ProfilerSubscriber): void
+    process (fn: ProfilerProcessor): void
   }
 
   /**

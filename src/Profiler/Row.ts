@@ -70,7 +70,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
     }
 
     return this.manager.isEnabled(action)
-      ? new ProfilerAction(action, this.id, this.manager.subscriber, data)
+      ? new ProfilerAction(action, this.manager.processor!, this.id, data)
       : dummyAction
   }
 
@@ -108,7 +108,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
     /**
      * Invoke subscriber
      */
-    this.manager.subscriber!(this.makeLogPacket())
+    this.manager.processor!(this.makeLogPacket())
   }
 
   /**

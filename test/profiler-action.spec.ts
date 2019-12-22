@@ -13,9 +13,9 @@ import { ProfilerAction } from '../src/Profiler/Action'
 test.group('Profiler action', () => {
   test('get log packet for a given action', (assert) => {
     let logPacket: any = null
-    const subscriber = (log: any) => (logPacket = log)
+    const processor = (log: any) => (logPacket = log)
 
-    const action = new ProfilerAction('render:view', '123', subscriber, {})
+    const action = new ProfilerAction('render:view', processor, '123', {})
     action.end()
 
     assert.equal(logPacket.label, 'render:view')
@@ -28,9 +28,9 @@ test.group('Profiler action', () => {
 
   test('add data to log packet', (assert) => {
     let logPacket: any = null
-    const subscriber = (log: any) => (logPacket = log)
+    const processor = (log: any) => (logPacket = log)
 
-    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', processor, '123', { id: 1 })
     action.end()
 
     assert.equal(logPacket.label, 'render:view')
@@ -43,9 +43,9 @@ test.group('Profiler action', () => {
 
   test('merge end data with original action data', (assert) => {
     let logPacket: any = null
-    const subscriber = (log: any) => (logPacket = log)
+    const processor = (log: any) => (logPacket = log)
 
-    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', processor, '123', { id: 1 })
     action.end({ name: 'virk' })
 
     assert.equal(logPacket.label, 'render:view')
@@ -57,9 +57,9 @@ test.group('Profiler action', () => {
   })
 
   test('raise error when end is called twice', (assert) => {
-    const subscriber = () => {}
+    const processor = () => {}
 
-    const action = new ProfilerAction('render:view', '123', subscriber, { id: 1 })
+    const action = new ProfilerAction('render:view', processor, '123', { id: 1 })
     action.end({ name: 'virk' })
 
     const fn = () => action.end()
@@ -68,9 +68,9 @@ test.group('Profiler action', () => {
 
   test('get log packet for action without parent row', (assert) => {
     let logPacket: any = null
-    const subscriber = (log: any) => (logPacket = log)
+    const processor = (log: any) => (logPacket = log)
 
-    const action = new ProfilerAction('render:view', undefined, subscriber, {})
+    const action = new ProfilerAction('render:view', processor, undefined, {})
     action.end()
 
     assert.equal(logPacket.label, 'render:view')

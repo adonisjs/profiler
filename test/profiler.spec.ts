@@ -13,13 +13,13 @@ import { Profiler } from '../src/Profiler'
 test.group('Profiler | isEnabled', () => {
   test('return false from isEnabled when enabled inside config is set to false', (assert) => {
     const profiler = new Profiler({ enabled: false })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
   test('return true from isEnabled when whitelist is an empty array', (assert) => {
     const profiler = new Profiler({ enabled: true })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
@@ -29,7 +29,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: [],
       blacklist: ['http request'],
     })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
@@ -39,7 +39,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['foo'],
       blacklist: [],
     })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
@@ -49,7 +49,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['http request'],
       blacklist: [],
     })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
@@ -59,7 +59,7 @@ test.group('Profiler | isEnabled', () => {
       whitelist: ['http request'],
       blacklist: ['http request'],
     })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 })
@@ -73,7 +73,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     req.end()
@@ -92,7 +92,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const child = req.profile('find_route')
@@ -118,7 +118,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const core = req.child('core')
@@ -152,7 +152,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({ enabled: true })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     req.end()
@@ -175,7 +175,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({ enabled: true })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     req.end({ time: 11 })
@@ -184,7 +184,7 @@ test.group('Profile | profile', () => {
 
   test('return true when row has a parent', (assert) => {
     const profiler = new Profiler({ enabled: true })
-    profiler.subscribe(() => {})
+    profiler.process(() => {})
 
     const req = profiler.create('http_request', { id: '123' })
     assert.isFalse(req.hasParent)
@@ -201,7 +201,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     req.profile('find_route', {}, () => {
@@ -227,7 +227,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
 
@@ -258,7 +258,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     await req.profileAsync('find_route', {}, async () => {
@@ -284,7 +284,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
 
@@ -315,7 +315,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const child = profiler.profile('find_route')
     child.end()
@@ -335,7 +335,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     profiler.profile('find_route', {}, () => {
     })
@@ -355,7 +355,7 @@ test.group('Profile | profile', () => {
     }
 
     const profiler = new Profiler({})
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     try {
       await profiler.profileAsync('find_route', {}, async () => {
@@ -380,7 +380,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ enabled: false })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     req.end()
@@ -396,7 +396,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ blacklist: ['find_route'] })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const child = req.profile('find_route')
@@ -418,7 +418,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ blacklist: ['core'] })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const core = req.child('core')
@@ -443,7 +443,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ enabled: false })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const core = req.child('core')
@@ -474,7 +474,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ enabled: false })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const route = req.profile('find_route', {}, () => {
@@ -494,7 +494,7 @@ test.group('Profile | dummy profile', () => {
     }
 
     const profiler = new Profiler({ enabled: false })
-    profiler.subscribe(subscriber)
+    profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
     const route = await req.profileAsync('find_route', {}, async () => {

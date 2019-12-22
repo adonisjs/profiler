@@ -13,14 +13,15 @@
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
-import { ProfilerRow } from './Row'
 import { Profile } from './Profile'
+import { ProfilerRow } from './Row'
+import { processor } from './Processor'
 import { ProfilerAction } from './Action'
 import { dummyRow, dummyAction } from './Dummy'
 
 import {
   ProfilerContract,
-  ProfilerSubscriber,
+  ProfilerProcessor,
   ProfilerRowContract,
   ProfilerActionContract,
   ProfilerConfigContract,
@@ -35,7 +36,7 @@ export class Profiler extends Profile implements ProfilerContract {
   /**
    * Subscribe to listen for events
    */
-  public subscriber: ProfilerSubscriber
+  public processor: Exclude<ProfilerProcessor, string>
 
   /**
    * Profiler config
@@ -57,7 +58,7 @@ export class Profiler extends Profile implements ProfilerContract {
    */
   protected $getAction (action: string, data?: any): ProfilerActionContract {
     return this.isEnabled(action)
-      ? new ProfilerAction(action, undefined, this.subscriber, data)
+      ? new ProfilerAction(action, this.processor!, undefined, data)
       : dummyAction
   }
 
@@ -66,7 +67,7 @@ export class Profiler extends Profile implements ProfilerContract {
    * a given `action` or `label` or not?
    */
   public isEnabled (labelOrAction: string): boolean {
-    if (!this.config.enabled || !this.subscriber) {
+    if (!this.config.enabled || !this.processor) {
       return false
     }
 
@@ -101,7 +102,7 @@ export class Profiler extends Profile implements ProfilerContract {
    * Define subscriber for the profiler. Only one subscriber can be defined
    * at max. Redifying the subscriber will override the existing subscriber
    */
-  public subscribe (fn: ProfilerSubscriber): void {
-    this.subscriber = fn
+  public process (fn: ProfilerProcessor): void {
+    this.processor = processor(fn)
   }
 }

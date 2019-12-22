@@ -14,7 +14,7 @@
 /// <reference path="../../adonis-typings/profiler.ts" />
 
 import { Exception } from '@poppinss/utils'
-import { ProfilerActionDataPacket, ProfilerSubscriber } from '@ioc:Adonis/Core/Profiler'
+import { ProfilerActionDataPacket, ProfilerProcessor } from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Profiler action is used to profile the timing of a given action. An
@@ -28,8 +28,8 @@ export class ProfilerAction {
 
   constructor (
     private label: string,
+    private processor: Exclude<ProfilerProcessor, string>,
     private parentId?: string,
-    private subscriber?: ProfilerSubscriber,
     private data?: any,
   ) {}
 
@@ -71,6 +71,6 @@ export class ProfilerAction {
       this.data = Object.assign({}, this.data, data)
     }
 
-    this.subscriber!(this.makePacket())
+    this.processor(this.makePacket())
   }
 }
