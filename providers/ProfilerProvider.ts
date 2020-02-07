@@ -12,6 +12,8 @@
 */
 
 import { IocContract } from '@adonisjs/fold'
+import { LoggerContract } from '@ioc:Adonis/Core/Logger'
+
 import { Profiler } from '../src/Profiler'
 
 export default class ProfilerProvider {
@@ -20,7 +22,9 @@ export default class ProfilerProvider {
   public register () {
     this.$container.singleton('Adonis/Core/Profiler', () => {
       const config = this.$container.use('Adonis/Core/Config').get('app.profiler', {})
-      return new Profiler(config)
+      const logger = this.$container.use<LoggerContract>('Adonis/Core/Logger')
+      const appRoot = this.$container.use('Adonis/Core/Application').appRoot as string
+      return new Profiler(appRoot, logger, config)
     })
   }
 }

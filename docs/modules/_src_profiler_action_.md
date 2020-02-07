@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;src/Profiler/Action&quot;](_src_profiler_action_.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/Action"](_src_profiler_action_.md)
 
 # External module: "src/Profiler/Action"
 

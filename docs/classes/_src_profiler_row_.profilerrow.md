@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;src/Profiler/Row&quot;](../modules/_src_profiler_row_.md) › [ProfilerRow](_src_profiler_row_.profilerrow.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/Row"](../modules/_src_profiler_row_.md) › [ProfilerRow](_src_profiler_row_.profilerrow.md)
 
 # Class: ProfilerRow
 
@@ -11,7 +9,7 @@ number of nested rows can be created.
 
 * [Profile](_src_profiler_profile_.profile.md)
 
-  * **ProfilerRow**
+  ↳ **ProfilerRow**
 
 ## Implements
 
@@ -30,8 +28,8 @@ number of nested rows can be created.
 
 ### Methods
 
-* [$getAction](_src_profiler_row_.profilerrow.md#protected-$getaction)
-* [child](_src_profiler_row_.profilerrow.md#child)
+* [$getAction](_src_profiler_row_.profilerrow.md#protected-getaction)
+* [create](_src_profiler_row_.profilerrow.md#create)
 * [end](_src_profiler_row_.profilerrow.md#end)
 * [profile](_src_profiler_row_.profilerrow.md#profile)
 * [profileAsync](_src_profiler_row_.profilerrow.md#profileasync)
@@ -40,16 +38,16 @@ number of nested rows can be created.
 
 ###  constructor
 
-\+ **new ProfilerRow**(`_label`: string, `_manager`: ProfilerContract, `_data?`: any, `_parentId?`: undefined | string): *[ProfilerRow](_src_profiler_row_.profilerrow.md)*
+\+ **new ProfilerRow**(`label`: string, `manager`: ProfilerContract, `data?`: any, `parentId?`: undefined | string): *[ProfilerRow](_src_profiler_row_.profilerrow.md)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`_label` | string |
-`_manager` | ProfilerContract |
-`_data?` | any |
-`_parentId?` | undefined &#124; string |
+`label` | string |
+`manager` | ProfilerContract |
+`data?` | any |
+`parentId?` | undefined &#124; string |
 
 **Returns:** *[ProfilerRow](_src_profiler_row_.profilerrow.md)*
 
@@ -69,7 +67,7 @@ Returns a boolean telling if a parent exists
 
 ▸ **$getAction**(`action`: string, `data?`: any): *ProfilerActionContract*
 
-*Overrides [Profile](_src_profiler_profile_.profile.md).[$getAction](_src_profiler_profile_.profile.md#protected-abstract-$getaction)*
+*Overrides [Profile](_src_profiler_profile_.profile.md).[$getAction](_src_profiler_profile_.profile.md#protected-abstract-getaction)*
 
 Returns the action instance to be used by the [Profile](_src_profiler_profile_.profile.md) class
 
@@ -84,9 +82,9 @@ Name | Type |
 
 ___
 
-###  child
+###  create
 
-▸ **child**(`label`: string, `data?`: any): *ProfilerRowContract*
+▸ **create**(`label`: string, `data?`: any): *ProfilerRowContract*
 
 Get a new child logger. Child logger will emit a new row
 in the events timeline

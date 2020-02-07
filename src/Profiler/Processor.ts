@@ -7,17 +7,24 @@
  * file that was distributed with this source code.
 */
 
-import { ProfilerActionDataPacket, ProfilerRowDataPacket, ProfilerProcessor } from '@ioc:Adonis/Core/Profiler'
+import {
+  ProfilerProcessor,
+  ProfilerRowDataPacket,
+  ProfilerActionDataPacket,
+} from '@ioc:Adonis/Core/Profiler'
 
-function createWorker (_filename: string) {
-  return function (_: ProfilerActionDataPacket | ProfilerRowDataPacket) {
+function createWorker (userFn: any) {
+  return async function (packet: ProfilerActionDataPacket | ProfilerRowDataPacket) {
+    try {
+      await userFn(packet)
+    } catch (error) {}
   }
 }
 
 export function processor (userFn: ProfilerProcessor) {
-  if (typeof (userFn) === 'function') {
-    return userFn
-  }
+  // if (typeof (userFn) === 'function') {
+  //   return userFn
+  // }
 
   return createWorker(userFn)
 }

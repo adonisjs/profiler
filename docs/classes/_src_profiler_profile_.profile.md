@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;src/Profiler/Profile&quot;](../modules/_src_profiler_profile_.md) › [Profile](_src_profiler_profile_.profile.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/Profile"](../modules/_src_profiler_profile_.md) › [Profile](_src_profiler_profile_.profile.md)
 
 # Class: Profile
 
@@ -10,9 +8,9 @@ Abstract class to be extended to add support for timing functions.
 
 * **Profile**
 
-  * [ProfilerRow](_src_profiler_row_.profilerrow.md)
+  ↳ [ProfilerRow](_src_profiler_row_.profilerrow.md)
 
-  * [Profiler](_src_profiler_index_.profiler.md)
+  ↳ [Profiler](_src_profiler_index_.profiler.md)
 
 ## Implements
 
@@ -22,7 +20,7 @@ Abstract class to be extended to add support for timing functions.
 
 ### Methods
 
-* [$getAction](_src_profiler_profile_.profile.md#protected-abstract-$getaction)
+* [$getAction](_src_profiler_profile_.profile.md#protected-abstract-getaction)
 * [profile](_src_profiler_profile_.profile.md#profile)
 * [profileAsync](_src_profiler_profile_.profile.md#profileasync)
 

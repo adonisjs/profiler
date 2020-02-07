@@ -9,20 +9,20 @@ const suite = new (Benchmark.Suite)()
 function invokeFoo () {}
 
 suite
-  .add('Profiler actions', function() {
+  .add('Profiler actions', function () {
     const action = row.profile('foo')
     invokeFoo()
     action.end()
   })
-  .add('Profiler actions | wrap', function() {
+  .add('Profiler actions | wrap', function () {
     row.profile('foo', {}, () => {
       invokeFoo()
     })
   })
-  .on('cycle', function(event) {
+  .on('cycle', function (event) {
     console.log(String(event.target))
   })
-  .on('complete', function() {
+  .on('complete', function () {
     console.log('Fastest is ' + this.filter('fastest').map('name'))
   })
   // run async

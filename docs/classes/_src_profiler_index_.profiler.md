@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;src/Profiler/index&quot;](../modules/_src_profiler_index_.md) › [Profiler](_src_profiler_index_.profiler.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/index"](../modules/_src_profiler_index_.md) › [Profiler](_src_profiler_index_.profiler.md)
 
 # Class: Profiler
 
@@ -12,7 +10,7 @@ implementations are returned, resulting in noop.
 
 * [Profile](_src_profiler_profile_.profile.md)
 
-  * **Profiler**
+  ↳ **Profiler**
 
 ## Implements
 
@@ -27,16 +25,16 @@ implementations are returned, resulting in noop.
 
 ### Properties
 
-* [subscriber](_src_profiler_index_.profiler.md#subscriber)
+* [processor](_src_profiler_index_.profiler.md#processor)
 
 ### Methods
 
-* [$getAction](_src_profiler_index_.profiler.md#protected-$getaction)
+* [$getAction](_src_profiler_index_.profiler.md#protected-getaction)
 * [create](_src_profiler_index_.profiler.md#create)
 * [isEnabled](_src_profiler_index_.profiler.md#isenabled)
+* [process](_src_profiler_index_.profiler.md#process)
 * [profile](_src_profiler_index_.profiler.md#profile)
 * [profileAsync](_src_profiler_index_.profiler.md#profileasync)
-* [subscribe](_src_profiler_index_.profiler.md#subscribe)
 
 ## Constructors
 
@@ -54,9 +52,9 @@ Name | Type |
 
 ## Properties
 
-###  subscriber
+###  processor
 
-• **subscriber**: *ProfilerSubscriber*
+• **processor**: *Exclude‹ProfilerProcessor, string›*
 
 Subscribe to listen for events
 
@@ -66,7 +64,7 @@ Subscribe to listen for events
 
 ▸ **$getAction**(`action`: string, `data?`: any): *ProfilerActionContract*
 
-*Overrides [Profile](_src_profiler_profile_.profile.md).[$getAction](_src_profiler_profile_.profile.md#protected-abstract-$getaction)*
+*Overrides [Profile](_src_profiler_profile_.profile.md).[$getAction](_src_profiler_profile_.profile.md#protected-abstract-getaction)*
 
 Returns the action to be used for timing functions
 
@@ -114,6 +112,23 @@ Name | Type |
 `labelOrAction` | string |
 
 **Returns:** *boolean*
+
+___
+
+###  process
+
+▸ **process**(`fn`: ProfilerProcessor): *void*
+
+Define subscriber for the profiler. Only one subscriber can be defined
+at max. Redifying the subscriber will override the existing subscriber
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`fn` | ProfilerProcessor |
+
+**Returns:** *void*
 
 ___
 
@@ -194,20 +209,3 @@ Name | Type |
 `data?` | any |
 
 **Returns:** *Promise‹ProfilerActionContract›*
-
-___
-
-###  subscribe
-
-▸ **subscribe**(`fn`: ProfilerSubscriber): *void*
-
-Define subscriber for the profiler. Only one subscriber can be defined
-at max. Redifying the subscriber will override the existing subscriber
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`fn` | ProfilerSubscriber |
-
-**Returns:** *void*

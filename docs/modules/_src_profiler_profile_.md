@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;src/Profiler/Profile&quot;](_src_profiler_profile_.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/Profile"](_src_profiler_profile_.md)
 
 # External module: "src/Profiler/Profile"
 

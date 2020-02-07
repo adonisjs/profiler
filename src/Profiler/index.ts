@@ -13,9 +13,12 @@
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
+import Worker from 'jest-worker'
+import { resolveFrom } from '@poppinss/utils'
+import { LoggerContract } from '@ioc:Adonis/Core/Logger'
+
 import { Profile } from './Profile'
 import { ProfilerRow } from './Row'
-import { processor } from './Processor'
 import { ProfilerAction } from './Action'
 import { dummyRow, dummyAction } from './Dummy'
 
@@ -33,17 +36,23 @@ import {
  * implementations are returned, resulting in noop.
  */
 export class Profiler extends Profile implements ProfilerContract {
+  private worker?: Worker
+
   /**
    * Subscribe to listen for events
    */
-  public processor: Exclude<ProfilerProcessor, string>
+  public processor?: Exclude<ProfilerProcessor, string>
 
   /**
    * Profiler config
    */
   private config: ProfilerConfigContract
 
-  constructor (config: Partial<ProfilerConfigContract>) {
+  constructor (
+    private appRoot: string,
+    private logger: LoggerContract,
+    config: Partial<ProfilerConfigContract>,
+  ) {
     super()
 
     this.config = Object.assign({
@@ -99,10 +108,47 @@ export class Profiler extends Profile implements ProfilerContract {
   }
 
   /**
+   * Close the worker and cleanup memory
+   */
+  public cleanup () {
+    if (this.worker) {
+      this.worker.end()
+    }
+
+    this.processor = undefined
+    this.worker = undefined
+  }
+
+  /**
    * Define subscriber for the profiler. Only one subscriber can be defined
    * at max. Redifying the subscriber will override the existing subscriber
    */
   public process (fn: ProfilerProcessor): void {
-    this.processor = processor(fn)
+    /**
+     * The processor is an inline function
+     */
+    if (typeof (fn) === 'function') {
+      this.processor = async (log) => {
+        try {
+          await fn(log)
+        } catch (error) {
+          this.logger.fatal('The profiler processor function raised an exception', error)
+        }
+      }
+      return
+    }
+
+    this.worker = new Worker(resolveFrom(this.appRoot, fn))
+
+    /**
+     * The processor is a spawned worker (recommended)
+     */
+    this.processor = async (log) => {
+      try {
+        await this.worker!['profile'](log)
+      } catch (error) {
+        this.logger.fatal('The profiler processor worker raised an exception', error)
+      }
+    }
   }
 }

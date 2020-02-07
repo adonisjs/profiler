@@ -116,9 +116,16 @@ declare module '@ioc:Adonis/Core/Profiler' {
     create (label: string, data?: any): ProfilerRowContract,
 
     /**
-     * Define a custom processor function
+     * Define a custom processor function or path to
+     * the processor function module.
      */
     process (fn: ProfilerProcessor): void
+
+    /**
+     * Flush final bits (if any) and close the worker
+     * process
+     */
+    cleanup (): void
   }
 
   /**

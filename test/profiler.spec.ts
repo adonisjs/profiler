@@ -8,57 +8,76 @@
  */
 
 import test from 'japa'
+import { FakeLogger } from '@adonisjs/logger/build/standalone'
 import { Profiler } from '../src/Profiler'
+
+const logger = new FakeLogger({ enabled: true, level: 'trace', name: 'adonis' })
 
 test.group('Profiler | isEnabled', () => {
   test('return false from isEnabled when enabled inside config is set to false', (assert) => {
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
   test('return true from isEnabled when whitelist is an empty array', (assert) => {
-    const profiler = new Profiler({ enabled: true })
+    const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
   test('return false when whitelist is an empty array but blacklist has the label', (assert) => {
-    const profiler = new Profiler({
-      enabled: true,
-      whitelist: [],
-      blacklist: ['http request'],
-    })
+    const profiler = new Profiler(
+      __dirname,
+      logger,
+      {
+        enabled: true,
+        whitelist: [],
+        blacklist: ['http request'],
+      },
+    )
     profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
   test('return false when whitelist doesn\'t have the label', (assert) => {
-    const profiler = new Profiler({
-      enabled: true,
-      whitelist: ['foo'],
-      blacklist: [],
-    })
+    const profiler = new Profiler(
+      __dirname,
+      logger,
+      {
+        enabled: true,
+        whitelist: ['foo'],
+        blacklist: [],
+      },
+    )
     profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
   test('return true when whitelist has the label', (assert) => {
-    const profiler = new Profiler({
-      enabled: true,
-      whitelist: ['http request'],
-      blacklist: [],
-    })
+    const profiler = new Profiler(
+      __dirname,
+      logger,
+      {
+        enabled: true,
+        whitelist: ['http request'],
+        blacklist: [],
+      },
+    )
     profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
   test('return true if it\'s in whitelist and black list both', (assert) => {
-    const profiler = new Profiler({
-      enabled: true,
-      whitelist: ['http request'],
-      blacklist: ['http request'],
-    })
+    const profiler = new Profiler(
+      __dirname,
+      logger,
+      {
+        enabled: true,
+        whitelist: ['http request'],
+        blacklist: ['http request'],
+      },
+    )
     profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
@@ -72,7 +91,7 @@ test.group('Profile | profile', () => {
       packet = node
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -91,7 +110,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -117,7 +136,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -151,7 +170,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ enabled: true })
+    const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -162,7 +181,7 @@ test.group('Profile | profile', () => {
   })
 
   test('do not emit when subscriber is not defined', () => {
-    const profiler = new Profiler({ enabled: true })
+    const profiler = new Profiler(__dirname, logger, { enabled: true })
     const req = profiler.create('http_request', { id: '123' })
     req.end()
   })
@@ -174,7 +193,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ enabled: true })
+    const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -183,7 +202,7 @@ test.group('Profile | profile', () => {
   })
 
   test('return true when row has a parent', (assert) => {
-    const profiler = new Profiler({ enabled: true })
+    const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(() => {})
 
     const req = profiler.create('http_request', { id: '123' })
@@ -200,7 +219,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -226,7 +245,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -257,7 +276,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -283,7 +302,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -314,7 +333,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     const child = profiler.profile('find_route')
@@ -334,7 +353,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     profiler.profile('find_route', {}, () => {
@@ -354,7 +373,7 @@ test.group('Profile | profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({})
+    const profiler = new Profiler(__dirname, logger, {})
     profiler.process(subscriber)
 
     try {
@@ -379,7 +398,7 @@ test.group('Profile | dummy profile', () => {
       packet = node
     }
 
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -395,7 +414,7 @@ test.group('Profile | dummy profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ blacklist: ['find_route'] })
+    const profiler = new Profiler(__dirname, logger, { blacklist: ['find_route'] })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -417,7 +436,7 @@ test.group('Profile | dummy profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ blacklist: ['core'] })
+    const profiler = new Profiler(__dirname, logger, { blacklist: ['core'] })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -442,7 +461,7 @@ test.group('Profile | dummy profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -457,7 +476,7 @@ test.group('Profile | dummy profile', () => {
   })
 
   test('return false from dummy row even when row has a parent', (assert) => {
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
 
     const req = profiler.create('http_request', { id: '123' })
     assert.isFalse(req.hasParent)
@@ -473,7 +492,7 @@ test.group('Profile | dummy profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })
@@ -493,7 +512,7 @@ test.group('Profile | dummy profile', () => {
       packets.push(node)
     }
 
-    const profiler = new Profiler({ enabled: false })
+    const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(subscriber)
 
     const req = profiler.create('http_request', { id: '123' })

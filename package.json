@@ -31,6 +31,7 @@
   "license": "MIT",
   "devDependencies": {
     "@adonisjs/fold": "^6.3.2",
+    "@adonisjs/logger": "^1.1.8",
     "@adonisjs/mrm-preset": "^2.2.4",
     "@types/node": "^13.7.0",
     "benchmark": "^2.1.4",
@@ -71,7 +72,8 @@
   },
   "dependencies": {
     "@poppinss/utils": "^2.1.2",
-    "cuid": "^2.1.8"
+    "cuid": "^2.1.8",
+    "jest-worker": "^25.1.0"
   },
   "np": {
     "contents": ".",

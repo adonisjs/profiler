@@ -1,6 +1,4 @@
-**[@adonisjs/profiler](../README.md)**
-
-[Globals](../README.md) › [&quot;providers/ProfilerProvider&quot;](../modules/_providers_profilerprovider_.md) › [ProfilerProvider](_providers_profilerprovider_.profilerprovider.md)
+[@adonisjs/profiler](../README.md) › ["providers/ProfilerProvider"](../modules/_providers_profilerprovider_.md) › [ProfilerProvider](_providers_profilerprovider_.profilerprovider.md)
 
 # Class: ProfilerProvider
 
@@ -16,7 +14,7 @@
 
 ### Properties
 
-* [$container](_providers_profilerprovider_.profilerprovider.md#protected-$container)
+* [$container](_providers_profilerprovider_.profilerprovider.md#protected-container)
 
 ### Methods
 
