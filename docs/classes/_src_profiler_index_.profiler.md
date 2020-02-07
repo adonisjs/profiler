@@ -25,11 +25,12 @@ implementations are returned, resulting in noop.
 
 ### Properties
 
-* [processor](_src_profiler_index_.profiler.md#processor)
+* [processor](_src_profiler_index_.profiler.md#optional-processor)
 
 ### Methods
 
 * [$getAction](_src_profiler_index_.profiler.md#protected-getaction)
+* [cleanup](_src_profiler_index_.profiler.md#cleanup)
 * [create](_src_profiler_index_.profiler.md#create)
 * [isEnabled](_src_profiler_index_.profiler.md#isenabled)
 * [process](_src_profiler_index_.profiler.md#process)
@@ -40,21 +41,23 @@ implementations are returned, resulting in noop.
 
 ###  constructor
 
-\+ **new Profiler**(`config`: Partial‹ProfilerConfigContract›): *[Profiler](_src_profiler_index_.profiler.md)*
+\+ **new Profiler**(`appRoot`: string, `logger`: LoggerContract, `config`: Partial‹ProfilerConfigContract›): *[Profiler](_src_profiler_index_.profiler.md)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
+`appRoot` | string |
+`logger` | LoggerContract |
 `config` | Partial‹ProfilerConfigContract› |
 
 **Returns:** *[Profiler](_src_profiler_index_.profiler.md)*
 
 ## Properties
 
-###  processor
+### `Optional` processor
 
-• **processor**: *Exclude‹ProfilerProcessor, string›*
+• **processor**? : *Exclude‹ProfilerProcessor, string›*
 
 Subscribe to listen for events
 
@@ -76,6 +79,16 @@ Name | Type |
 `data?` | any |
 
 **Returns:** *ProfilerActionContract*
+
+___
+
+###  cleanup
+
+▸ **cleanup**(): *void*
+
+Close the worker and cleanup memory
+
+**Returns:** *void*
 
 ___
 
