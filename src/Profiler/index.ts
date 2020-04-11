@@ -17,17 +17,17 @@ import Worker from 'jest-worker'
 import { resolveFrom } from '@poppinss/utils'
 import { LoggerContract } from '@ioc:Adonis/Core/Logger'
 
-import { Profile } from './Profile'
-import { ProfilerRow } from './Row'
-import { ProfilerAction } from './Action'
-import { dummyRow, dummyAction } from './Dummy'
+import { ProfilerRow } from '../Row'
+import { ProfilerAction } from '../Action'
+import { AbstractProfiler } from './AbstractProfiler'
+import { dummyRow, dummyAction } from '../DummyProfiler'
 
 import {
+  ProfilerConfig,
   ProfilerContract,
   ProfilerProcessor,
   ProfilerRowContract,
   ProfilerActionContract,
-  ProfilerConfigContract,
 } from '@ioc:Adonis/Core/Profiler'
 
 /**
@@ -35,7 +35,7 @@ import {
  * rows and actions. In case of blacklisted actions, dummy
  * implementations are returned, resulting in noop.
  */
-export class Profiler extends Profile implements ProfilerContract {
+export class Profiler extends AbstractProfiler implements ProfilerContract {
   private worker?: Worker
 
   /**
@@ -46,12 +46,12 @@ export class Profiler extends Profile implements ProfilerContract {
   /**
    * Profiler config
    */
-  private config: ProfilerConfigContract
+  private config: ProfilerConfig
 
   constructor (
     private appRoot: string,
     private logger: LoggerContract,
-    config: Partial<ProfilerConfigContract>,
+    config: Partial<ProfilerConfig>,
   ) {
     super()
 
@@ -65,7 +65,7 @@ export class Profiler extends Profile implements ProfilerContract {
   /**
    * Returns the action to be used for timing functions
    */
-  protected $getAction (action: string, data?: any): ProfilerActionContract {
+  protected getAction (action: string, data?: any): ProfilerActionContract {
     return this.isEnabled(action)
       ? new ProfilerAction(action, this.processor!, undefined, data)
       : dummyAction

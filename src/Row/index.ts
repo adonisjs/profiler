@@ -16,14 +16,14 @@
 import cuid from 'cuid'
 import { Exception } from '@poppinss/utils'
 
-import { Profile } from './Profile'
-import { ProfilerAction } from './Action'
-import { dummyAction, dummyRow } from './Dummy'
+import { ProfilerAction } from '../Action'
+import { dummyAction, dummyRow } from '../DummyProfiler'
+import { AbstractProfiler } from '../Profiler/AbstractProfiler'
 
 import {
+  ProfilerRow as ProfilerRowData,
   ProfilerContract,
   ProfilerRowContract,
-  ProfilerRowDataPacket,
   ProfilerActionContract,
 } from '@ioc:Adonis/Core/Profiler'
 
@@ -31,7 +31,7 @@ import {
  * Profiler row class is used to group profiling actions together. Any
  * number of nested rows can be created.
  */
-export class ProfilerRow extends Profile implements ProfilerRowContract {
+export class ProfilerRow extends AbstractProfiler implements ProfilerRowContract {
   private id = cuid()
   private timestamp = Date.now()
   private start = process.hrtime()
@@ -49,7 +49,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
   /**
    * Makes the log packet for the log row
    */
-  private makeLogPacket (): ProfilerRowDataPacket {
+  private makeLogPacket (): ProfilerRowData {
     return {
       id: this.id,
       type: 'row',
@@ -62,9 +62,9 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
   }
 
   /**
-   * Returns the action instance to be used by the [[Profile]] class
+   * Returns the action instance to be used by the [[AbstractProfiler]] class
    */
-  protected $getAction (action: string, data?: any): ProfilerActionContract {
+  protected getAction (action: string, data?: any): ProfilerActionContract {
     if (this.ended) {
       throw new Exception('cannot profile after parent row has been ended')
     }
@@ -106,7 +106,7 @@ export class ProfilerRow extends Profile implements ProfilerRowContract {
     }
 
     /**
-     * Invoke subscriber
+     * Invoke processor
      */
     this.manager.processor!(this.makeLogPacket())
   }

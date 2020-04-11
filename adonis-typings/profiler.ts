@@ -15,7 +15,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Shape of data packet for a single action
    */
-  export type ProfilerActionDataPacket = {
+  export type ProfilerAction = {
     type: 'action',
     label: string,
     timestamp: number,
@@ -27,7 +27,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Shape of data packet for a single row
    */
-  export type ProfilerRowDataPacket = {
+  export type ProfilerRow = {
     id: string,
     type: 'row',
     label: string,
@@ -40,7 +40,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * The processor action or worker node that listens for the logs
    */
-  export type ProfilerProcessor = string | ((log: ProfilerActionDataPacket | ProfilerRowDataPacket) => void)
+  export type ProfilerProcessor = string | ((log: ProfilerAction | ProfilerRow) => void)
 
   /**
    * Profiler action just has one method to mark
@@ -56,7 +56,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Exposes the API to time functions
    */
-  export interface ProfileContract {
+  export interface AbstractProfilerContract {
     /**
      * Time a function by wrapping it inside the callback
      */
@@ -89,7 +89,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Profiler row can spawn new actions or new rows
    */
-  export interface ProfilerRowContract extends ProfileContract {
+  export interface ProfilerRowContract extends AbstractProfilerContract {
     hasParent: boolean,
 
     /**
@@ -106,7 +106,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Main profiler
    */
-  export interface ProfilerContract extends ProfileContract {
+  export interface ProfilerContract extends AbstractProfilerContract {
     processor?: Exclude<ProfilerProcessor, string>,
     isEnabled (labelOrAction: string): boolean,
 
@@ -131,7 +131,7 @@ declare module '@ioc:Adonis/Core/Profiler' {
   /**
    * Profiler config
    */
-  export type ProfilerConfigContract = {
+  export type ProfilerConfig = {
     enabled: boolean,
     whitelist: string[],
     blacklist: string[],

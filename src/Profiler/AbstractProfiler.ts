@@ -13,13 +13,13 @@
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
-import { ProfilerActionContract, ProfileContract } from '@ioc:Adonis/Core/Profiler'
+import { ProfilerActionContract, AbstractProfilerContract } from '@ioc:Adonis/Core/Profiler'
 
 /**
  * Abstract class to be extended to add support for timing functions.
  */
-export abstract class Profile implements ProfileContract {
-  protected abstract $getAction (action: string, data: any): ProfilerActionContract
+export abstract class AbstractProfiler implements AbstractProfilerContract {
+  protected abstract getAction (action: string, data: any): ProfilerActionContract
 
   /**
    * Profile asyncronously. If you are are not passing a callback to this method,
@@ -32,7 +32,7 @@ export abstract class Profile implements ProfileContract {
     data?: any,
     cb?: (() => Promise<T>),
   ): Promise<ProfilerActionContract | T> {
-    const profilerAction = this.$getAction(action, data)
+    const profilerAction = this.getAction(action, data)
 
     if (typeof (cb) === 'function') {
       try {
@@ -55,7 +55,7 @@ export abstract class Profile implements ProfileContract {
   public profile<T extends any> (action: string, data: any, cb: (() => T)): T
   public profile (action: string, data?: any): ProfilerActionContract
   public profile<T extends any> (action: string, data?: any, cb?: (() => T)): ProfilerActionContract | T {
-    const profilerAction = this.$getAction(action, data)
+    const profilerAction = this.getAction(action, data)
 
     if (typeof (cb) === 'function') {
       try {

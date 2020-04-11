@@ -14,12 +14,11 @@
 /// <reference path="../../adonis-typings/profiler.ts" />
 
 import { Exception } from '@poppinss/utils'
-import { ProfilerActionDataPacket, ProfilerProcessor } from '@ioc:Adonis/Core/Profiler'
+import { ProfilerAction as ProfilerActionData, ProfilerProcessor } from '@ioc:Adonis/Core/Profiler'
 
 /**
- * Profiler action is used to profile the timing of a given action. An
- * action is always connected to a row, so it is recommended to
- * get the instance of action using [[ProfilerRow]].
+ * Profiler action is used to time the function. A connection can be
+ * connected to a row or can be a global action.
  */
 export class ProfilerAction {
   private start = process.hrtime()
@@ -36,7 +35,7 @@ export class ProfilerAction {
   /**
    * Make packet for the action
    */
-  private makePacket (): ProfilerActionDataPacket {
+  private makePacket (): ProfilerActionData {
     return {
       parent_id: this.parentId,
       type: 'action',

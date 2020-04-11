@@ -8,7 +8,7 @@
  */
 
 import test from 'japa'
-import { ProfilerAction } from '../src/Profiler/Action'
+import { ProfilerAction } from '../src/Action'
 
 test.group('Profiler action', () => {
   test('get log packet for a given action', (assert) => {
