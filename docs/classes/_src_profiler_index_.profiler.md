@@ -8,13 +8,13 @@ implementations are returned, resulting in noop.
 
 ## Hierarchy
 
-* [Profile](_src_profiler_profile_.profile.md)
+* [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md)
 
   ↳ **Profiler**
 
 ## Implements
 
-* ProfileContract
+* AbstractProfilerContract
 * ProfilerContract
 
 ## Index
@@ -29,9 +29,9 @@ implementations are returned, resulting in noop.
 
 ### Methods
 
-* [$getAction](_src_profiler_index_.profiler.md#protected-getaction)
 * [cleanup](_src_profiler_index_.profiler.md#cleanup)
 * [create](_src_profiler_index_.profiler.md#create)
+* [getAction](_src_profiler_index_.profiler.md#protected-getaction)
 * [isEnabled](_src_profiler_index_.profiler.md#isenabled)
 * [process](_src_profiler_index_.profiler.md#process)
 * [profile](_src_profiler_index_.profiler.md#profile)
@@ -41,7 +41,7 @@ implementations are returned, resulting in noop.
 
 ###  constructor
 
-\+ **new Profiler**(`appRoot`: string, `logger`: LoggerContract, `config`: Partial‹ProfilerConfigContract›): *[Profiler](_src_profiler_index_.profiler.md)*
+\+ **new Profiler**(`appRoot`: string, `logger`: LoggerContract, `config`: Partial‹ProfilerConfig›): *[Profiler](_src_profiler_index_.profiler.md)*
 
 **Parameters:**
 
@@ -49,7 +49,7 @@ Name | Type |
 ------ | ------ |
 `appRoot` | string |
 `logger` | LoggerContract |
-`config` | Partial‹ProfilerConfigContract› |
+`config` | Partial‹ProfilerConfig› |
 
 **Returns:** *[Profiler](_src_profiler_index_.profiler.md)*
 
@@ -62,25 +62,6 @@ Name | Type |
 Subscribe to listen for events
 
 ## Methods
-
-### `Protected` $getAction
-
-▸ **$getAction**(`action`: string, `data?`: any): *ProfilerActionContract*
-
-*Overrides [Profile](_src_profiler_profile_.profile.md).[$getAction](_src_profiler_profile_.profile.md#protected-abstract-getaction)*
-
-Returns the action to be used for timing functions
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`action` | string |
-`data?` | any |
-
-**Returns:** *ProfilerActionContract*
-
-___
 
 ###  cleanup
 
@@ -108,6 +89,25 @@ Name | Type |
 `data?` | any |
 
 **Returns:** *ProfilerRowContract*
+
+___
+
+### `Protected` getAction
+
+▸ **getAction**(`action`: string, `data?`: any): *ProfilerActionContract*
+
+*Overrides [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md).[getAction](_src_profiler_abstractprofiler_.abstractprofiler.md#protected-abstract-getaction)*
+
+Returns the action to be used for timing functions
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`action` | string |
+`data?` | any |
+
+**Returns:** *ProfilerActionContract*
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 ▸ **profile**<**T**>(`action`: string, `data`: any, `cb`: function): *T*
 
-*Inherited from [Profile](_src_profiler_profile_.profile.md).[profile](_src_profiler_profile_.profile.md#profile)*
+*Inherited from [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md).[profile](_src_profiler_abstractprofiler_.abstractprofiler.md#profile)*
 
 Get a new profiler action instance to time your code. Make sure
 to call the `end` function, when manually managing the actions
@@ -172,7 +172,7 @@ to call the `end` function, when manually managing the actions
 
 ▸ **profile**(`action`: string, `data?`: any): *ProfilerActionContract*
 
-*Inherited from [Profile](_src_profiler_profile_.profile.md).[profile](_src_profiler_profile_.profile.md#profile)*
+*Inherited from [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md).[profile](_src_profiler_abstractprofiler_.abstractprofiler.md#profile)*
 
 **Parameters:**
 
@@ -189,7 +189,7 @@ ___
 
 ▸ **profileAsync**<**T**>(`action`: string, `data`: any, `cb`: function): *Promise‹T›*
 
-*Inherited from [Profile](_src_profiler_profile_.profile.md).[profileAsync](_src_profiler_profile_.profile.md#profileasync)*
+*Inherited from [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md).[profileAsync](_src_profiler_abstractprofiler_.abstractprofiler.md#profileasync)*
 
 Profile asyncronously. If you are are not passing a callback to this method,
 then consider using [[this.profile]].
@@ -212,7 +212,7 @@ then consider using [[this.profile]].
 
 ▸ **profileAsync**(`action`: string, `data?`: any): *Promise‹ProfilerActionContract›*
 
-*Inherited from [Profile](_src_profiler_profile_.profile.md).[profileAsync](_src_profiler_profile_.profile.md#profileasync)*
+*Inherited from [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md).[profileAsync](_src_profiler_abstractprofiler_.abstractprofiler.md#profileasync)*
 
 **Parameters:**
 

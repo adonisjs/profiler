@@ -1,6 +1,6 @@
 [@adonisjs/profiler](../README.md) › ["src/Profiler/index"](_src_profiler_index_.md)
 
-# External module: "src/Profiler/index"
+# Module: "src/Profiler/index"
 
 ## Index
 

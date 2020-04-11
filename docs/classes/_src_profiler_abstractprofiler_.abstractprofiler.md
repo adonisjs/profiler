@@ -1,34 +1,34 @@
-[@adonisjs/profiler](../README.md) › ["src/Profiler/Profile"](../modules/_src_profiler_profile_.md) › [Profile](_src_profiler_profile_.profile.md)
+[@adonisjs/profiler](../README.md) › ["src/Profiler/AbstractProfiler"](../modules/_src_profiler_abstractprofiler_.md) › [AbstractProfiler](_src_profiler_abstractprofiler_.abstractprofiler.md)
 
-# Class: Profile
+# Class: AbstractProfiler
 
 Abstract class to be extended to add support for timing functions.
 
 ## Hierarchy
 
-* **Profile**
+* **AbstractProfiler**
 
-  ↳ [ProfilerRow](_src_profiler_row_.profilerrow.md)
+  ↳ [ProfilerRow](_src_row_index_.profilerrow.md)
 
   ↳ [Profiler](_src_profiler_index_.profiler.md)
 
 ## Implements
 
-* ProfileContract
+* AbstractProfilerContract
 
 ## Index
 
 ### Methods
 
-* [$getAction](_src_profiler_profile_.profile.md#protected-abstract-getaction)
-* [profile](_src_profiler_profile_.profile.md#profile)
-* [profileAsync](_src_profiler_profile_.profile.md#profileasync)
+* [getAction](_src_profiler_abstractprofiler_.abstractprofiler.md#protected-abstract-getaction)
+* [profile](_src_profiler_abstractprofiler_.abstractprofiler.md#profile)
+* [profileAsync](_src_profiler_abstractprofiler_.abstractprofiler.md#profileasync)
 
 ## Methods
 
-### `Protected` `Abstract` $getAction
+### `Protected` `Abstract` getAction
 
-▸ **$getAction**(`action`: string, `data`: any): *ProfilerActionContract*
+▸ **getAction**(`action`: string, `data`: any): *ProfilerActionContract*
 
 **Parameters:**
 

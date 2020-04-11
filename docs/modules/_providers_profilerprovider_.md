@@ -1,6 +1,6 @@
 [@adonisjs/profiler](../README.md) › ["providers/ProfilerProvider"](_providers_profilerprovider_.md)
 
-# External module: "providers/ProfilerProvider"
+# Module: "providers/ProfilerProvider"
 
 ## Index
 

@@ -34,7 +34,6 @@
     "@adonisjs/logger": "^2.0.0",
     "@adonisjs/mrm-preset": "^2.3.0",
     "@types/node": "^13.11.1",
-    "benchmark": "^2.1.4",
     "commitizen": "^4.0.4",
     "cz-conventional-changelog": "^3.1.0",
     "del-cli": "^3.0.0",
