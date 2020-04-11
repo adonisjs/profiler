@@ -1,7 +1,3 @@
-/**
- * @module @adonisjs/profiler
- */
-
 /*
 * @adonisjs/profiler
 *
