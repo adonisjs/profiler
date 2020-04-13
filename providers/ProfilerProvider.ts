@@ -13,13 +13,13 @@ import { LoggerContract } from '@ioc:Adonis/Core/Logger'
 import { Profiler } from '../src/Profiler'
 
 export default class ProfilerProvider {
-  constructor (protected $container: IocContract) {}
+  constructor (protected container: IocContract) {}
 
   public register () {
-    this.$container.singleton('Adonis/Core/Profiler', () => {
-      const config = this.$container.use('Adonis/Core/Config').get('app.profiler', {})
-      const logger = this.$container.use<LoggerContract>('Adonis/Core/Logger')
-      const appRoot = this.$container.use('Adonis/Core/Application').appRoot as string
+    this.container.singleton('Adonis/Core/Profiler', () => {
+      const config = this.container.use('Adonis/Core/Config').get('app.profiler', {})
+      const logger = this.container.use<LoggerContract>('Adonis/Core/Logger')
+      const appRoot = this.container.use('Adonis/Core/Application').appRoot
       return new Profiler(appRoot, logger, config)
     })
   }
