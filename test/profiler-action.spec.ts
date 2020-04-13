@@ -1,5 +1,5 @@
 /*
- * @poppinss/profiler
+ * @adonisjs/profiler
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
