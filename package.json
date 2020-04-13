@@ -71,6 +71,9 @@
     "cuid": "^2.1.8",
     "jest-worker": "^25.2.6"
   },
+  "peerDependencies": {
+    "@adonisjs/logger": "^2.0.0"
+  },
   "np": {
     "contents": ".",
     "anyBranch": false
