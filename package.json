@@ -30,8 +30,8 @@
   "author": "virk,adonisjs",
   "license": "MIT",
   "devDependencies": {
-    "@adonisjs/fold": "^6.3.2",
-    "@adonisjs/logger": "^2.0.0",
+    "@adonisjs/fold": "^6.3.5",
+    "@adonisjs/logger": "^2.0.1",
     "@adonisjs/mrm-preset": "^2.3.0",
     "@types/node": "^13.11.1",
     "commitizen": "^4.0.4",
@@ -70,7 +70,7 @@
     }
   },
   "dependencies": {
-    "@poppinss/utils": "^2.2.0",
+    "@poppinss/utils": "^2.2.4",
     "cuid": "^2.1.8",
     "jest-worker": "^25.2.6"
   },
