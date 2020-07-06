@@ -21,7 +21,11 @@ export abstract class AbstractProfiler implements AbstractProfilerContract {
 	 * Profile asyncronously. If you are are not passing a callback to this method,
 	 * then consider using [[this.profile]].
 	 */
-	public async profileAsync<T extends any>(action: string, data: any, cb: () => Promise<T>): Promise<T>
+	public async profileAsync<T extends any>(
+		action: string,
+		data: any,
+		cb: () => Promise<T>
+	): Promise<T>
 	public async profileAsync(action: string, data?: any): Promise<ProfilerActionContract>
 	public async profileAsync<T extends any>(
 		action: string,
@@ -50,7 +54,11 @@ export abstract class AbstractProfiler implements AbstractProfilerContract {
 	 */
 	public profile<T extends any>(action: string, data: any, cb: () => T): T
 	public profile(action: string, data?: any): ProfilerActionContract
-	public profile<T extends any>(action: string, data?: any, cb?: () => T): ProfilerActionContract | T {
+	public profile<T extends any>(
+		action: string,
+		data?: any,
+		cb?: () => T
+	): ProfilerActionContract | T {
 		const profilerAction = this.getAction(action, data)
 
 		if (typeof cb === 'function') {

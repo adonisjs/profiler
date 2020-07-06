@@ -20,8 +20,7 @@
 		"build": "npm run compile",
 		"commit": "git-cz",
 		"release": "np",
-		"version": "npm run build",
-		"format": "prettier --write ."
+		"version": "npm run build"
 	},
 	"keywords": [
 		"profiler",

@@ -45,7 +45,11 @@ export class Profiler extends AbstractProfiler implements ProfilerContract {
 	 */
 	private config: ProfilerConfig
 
-	constructor(private appRoot: string, private logger: LoggerContract, config: Partial<ProfilerConfig>) {
+	constructor(
+		private appRoot: string,
+		private logger: LoggerContract,
+		config: Partial<ProfilerConfig>
+	) {
 		super()
 
 		this.config = Object.assign(
@@ -62,7 +66,9 @@ export class Profiler extends AbstractProfiler implements ProfilerContract {
 	 * Returns the action to be used for timing functions
 	 */
 	protected getAction(action: string, data?: any): ProfilerActionContract {
-		return this.isEnabled(action) ? new ProfilerAction(action, this.processor!, undefined, data) : dummyAction
+		return this.isEnabled(action)
+			? new ProfilerAction(action, this.processor!, undefined, data)
+			: dummyAction
 	}
 
 	/**

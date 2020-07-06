@@ -44,7 +44,11 @@ class DummyRow implements ProfilerRowContract {
 
 	public async profileAsync(action: string, data: any, cb: () => void): Promise<void>
 	public async profileAsync(action: string, data?: any): Promise<ProfilerActionContract>
-	public async profileAsync(_action: string, _data?: any, cb?: () => void): Promise<ProfilerActionContract | void> {
+	public async profileAsync(
+		_action: string,
+		_data?: any,
+		cb?: () => void
+	): Promise<ProfilerActionContract | void> {
 		if (typeof cb === 'function') {
 			return cb()
 		}

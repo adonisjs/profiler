@@ -33,7 +33,12 @@ export class ProfilerRow extends AbstractProfiler implements ProfilerRowContract
 	private start = process.hrtime()
 	private ended = false
 
-	constructor(private label: string, private manager: ProfilerContract, private data?: any, private parentId?: string) {
+	constructor(
+		private label: string,
+		private manager: ProfilerContract,
+		private data?: any,
+		private parentId?: string
+	) {
 		super()
 	}
 
