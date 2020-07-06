@@ -1,6 +1,4 @@
 {
-  "extends": "./node_modules/@adonisjs/mrm-preset/_tsconfig",
-  "files": [
-    "./node_modules/@adonisjs/logger/build/adonis-typings/logger.d.ts"
-  ]
+	"extends": "./node_modules/@adonisjs/mrm-preset/_tsconfig",
+	"files": ["./node_modules/@adonisjs/logger/build/adonis-typings/logger.d.ts"]
 }

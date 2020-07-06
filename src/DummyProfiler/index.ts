@@ -1,11 +1,11 @@
 /*
-* @adonisjs/profiler
-*
-* (c) Harminder Virk <virk@adonisjs.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * @adonisjs/profiler
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
@@ -17,7 +17,7 @@ import { ProfilerRowContract, ProfilerActionContract } from '@ioc:Adonis/Core/Pr
  * helps in avoiding the need of unneccessary `if/else` clauses.
  */
 class DummyAction implements ProfilerActionContract {
-  public end () {}
+	public end() {}
 }
 
 /**
@@ -26,42 +26,37 @@ class DummyAction implements ProfilerActionContract {
  * of unneccessary `if/else` clauses.
  */
 class DummyRow implements ProfilerRowContract {
-  private action = new DummyAction()
+	private action = new DummyAction()
 
-  public get hasParent () {
-    return false
-  }
+	public get hasParent() {
+		return false
+	}
 
-  public profile (action: string, data: any, cb: (() => void)): void
-  public profile (action: string, data?: any): ProfilerActionContract
-  public profile (_action: string, _data?: any, cb?: (() => void)): ProfilerActionContract | void {
-    if (typeof (cb) === 'function') {
-      return cb()
-    }
+	public profile(action: string, data: any, cb: () => void): void
+	public profile(action: string, data?: any): ProfilerActionContract
+	public profile(_action: string, _data?: any, cb?: () => void): ProfilerActionContract | void {
+		if (typeof cb === 'function') {
+			return cb()
+		}
 
-    return this.action
-  }
+		return this.action
+	}
 
-  public async profileAsync (action: string, data: any, cb: (() => void)): Promise<void>
-  public async profileAsync (action: string, data?: any): Promise<ProfilerActionContract>
-  public async profileAsync (
-    _action: string,
-    _data?: any,
-    cb?: (() => void),
-  ): Promise<ProfilerActionContract | void> {
-    if (typeof (cb) === 'function') {
-      return cb()
-    }
+	public async profileAsync(action: string, data: any, cb: () => void): Promise<void>
+	public async profileAsync(action: string, data?: any): Promise<ProfilerActionContract>
+	public async profileAsync(_action: string, _data?: any, cb?: () => void): Promise<ProfilerActionContract | void> {
+		if (typeof cb === 'function') {
+			return cb()
+		}
 
-    return this.action
-  }
+		return this.action
+	}
 
-  public create () {
-    return this
-  }
+	public create() {
+		return this
+	}
 
-  public end () {
-  }
+	public end() {}
 }
 
 const dummyAction = new DummyAction()
