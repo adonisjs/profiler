@@ -17,6 +17,7 @@ import { ProfilerRow } from '../Row'
 import { ProfilerAction } from '../Action'
 import { AbstractProfiler } from './AbstractProfiler'
 import { dummyRow, dummyAction } from '../DummyProfiler'
+import { InvalidProcessorException } from '../Exceptions/InvalidProcessorException'
 
 import {
 	ProfilerConfig,
@@ -125,22 +126,28 @@ export class Profiler extends AbstractProfiler implements ProfilerContract {
 				try {
 					await fn(log)
 				} catch (error) {
-					this.logger.fatal('The profiler processor function raised an exception', error)
+					this.logger.fatal(error, 'The profiler processor function raised an exception')
 				}
 			}
 			return
 		}
 
 		this.worker = new Worker(resolveFrom(this.appRoot, fn))
+		this.worker.getStdout().pipe(process.stdout)
+		this.worker.getStderr().pipe(process.stderr)
+
+		if (typeof this.worker!['process'] !== 'function') {
+			throw InvalidProcessorException.missingWorkerMethod(fn)
+		}
 
 		/**
 		 * The processor is a spawned worker (recommended)
 		 */
 		this.processor = async (log) => {
 			try {
-				await this.worker!['profile'](log)
+				await this.worker!['process'](log)
 			} catch (error) {
-				this.logger.fatal('The profiler processor worker raised an exception', error)
+				this.logger.fatal(error, `The profiler processor worker "${fn}" raised an exception`)
 			}
 		}
 	}

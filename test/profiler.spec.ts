@@ -8,10 +8,13 @@
  */
 
 import test from 'japa'
+import { join } from 'path'
+import { Filesystem } from '@poppinss/dev-utils'
 import { FakeLogger } from '@adonisjs/logger/build/standalone'
 import { Profiler } from '../src/Profiler'
 
 const logger = new FakeLogger({ enabled: true, level: 'trace', name: 'adonis' })
+const fs = new Filesystem(join(__dirname, './app'))
 
 test.group('Profiler | isEnabled', () => {
 	test('return false from isEnabled when enabled inside config is set to false', (assert) => {
@@ -67,7 +70,11 @@ test.group('Profiler | isEnabled', () => {
 	})
 })
 
-test.group('Profile | profile', () => {
+test.group('Profile | profile', (group) => {
+	group.afterEach(async () => {
+		await fs.cleanup()
+	})
+
 	test('create a profiler row', (assert) => {
 		let packet: any = null
 
@@ -368,6 +375,32 @@ test.group('Profile | profile', () => {
 		assert.equal(packets[0].label, 'find_route')
 		assert.equal(packets[0].data.error.message, 'foo')
 		assert.isUndefined(packets[0].parent_id)
+	})
+
+	test('raise exception when worker file is missing', (assert) => {
+		const profiler = new Profiler(__dirname, logger, {})
+		const fn = () => profiler.process('./foo.ts')
+		assert.throw(fn, "Cannot find module './foo.ts'")
+	})
+
+	test('raise exception when worker file does not export process function', async (assert) => {
+		await fs.add('./foo.ts', '')
+
+		const profiler = new Profiler(fs.basePath, logger, {})
+		const fn = () => profiler.process('./foo.ts')
+		assert.throw(fn, `E_INVALID_PROFILER_PROCESSOR: Profiler worker file "./foo.ts" must export a "process" function`)
+	})
+
+	test('work fine when worker node has process function', async () => {
+		await fs.add(
+			'./foo.ts',
+			`
+				export function process () {}
+			`
+		)
+
+		const profiler = new Profiler(fs.basePath, logger, {})
+		profiler.process('./foo.ts')
 	})
 })
 
