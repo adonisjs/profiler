@@ -36,7 +36,9 @@ declare module '@ioc:Adonis/Core/Profiler' {
 	/**
 	 * The processor action or worker node that listens for the logs
 	 */
-	export type ProfilerProcessor = string | ((log: ProfilerAction | ProfilerRow) => void | Promise<void>)
+	export type ProfilerProcessor =
+		| string
+		| ((log: ProfilerAction | ProfilerRow) => void | Promise<void>)
 
 	/**
 	 * Profiler action just has one method to mark
@@ -75,7 +77,11 @@ declare module '@ioc:Adonis/Core/Profiler' {
 		 * call `end` on the output of this function
 		 */
 		profileAsync(action: string, data?: any): Promise<ProfilerActionContract>
-		profileAsync<T extends any>(action: string, data?: any, cb?: () => Promise<T>): Promise<ProfilerActionContract | T>
+		profileAsync<T extends any>(
+			action: string,
+			data?: any,
+			cb?: () => Promise<T>
+		): Promise<ProfilerActionContract | T>
 	}
 
 	/**

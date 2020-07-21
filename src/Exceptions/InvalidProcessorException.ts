@@ -21,7 +21,7 @@ export class InvalidProcessorException extends Exception {
 			'E_INVALID_PROFILER_PROCESSOR'
 		)
 
-		error.description = `
+		error.help = `
 			Here's an example of how the profiler worker code should look like
 
 			\`\`\`

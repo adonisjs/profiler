@@ -388,7 +388,10 @@ test.group('Profile | profile', (group) => {
 
 		const profiler = new Profiler(fs.basePath, logger, {})
 		const fn = () => profiler.process('./foo.ts')
-		assert.throw(fn, `E_INVALID_PROFILER_PROCESSOR: Profiler worker file "./foo.ts" must export a "process" function`)
+		assert.throw(
+			fn,
+			`E_INVALID_PROFILER_PROCESSOR: Profiler worker file "./foo.ts" must export a "process" function`
+		)
 	})
 
 	test('work fine when worker node has process function', async () => {
