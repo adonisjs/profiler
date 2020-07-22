@@ -8,7 +8,8 @@
 		"build/providers",
 		"build/src",
 		"build/standalone.d.ts",
-		"build/standalone.js"
+		"build/standalone.js",
+		"build/exceptions.json"
 	],
 	"scripts": {
 		"mrm": "mrm --preset=@adonisjs/mrm-preset",
@@ -97,5 +98,8 @@
 	"bugs": {
 		"url": "https://github.com/adonisjs/profiler/issues"
 	},
-	"homepage": "https://github.com/adonisjs/profiler#readme"
+	"homepage": "https://github.com/adonisjs/profiler#readme",
+	"adonisjs": {
+		"exceptions": "./build/exceptions.json"
+	}
 }

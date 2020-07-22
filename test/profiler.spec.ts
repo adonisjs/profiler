@@ -390,7 +390,7 @@ test.group('Profile | profile', (group) => {
 		const fn = () => profiler.process('./foo.ts')
 		assert.throw(
 			fn,
-			`E_INVALID_PROFILER_PROCESSOR: Profiler worker file "./foo.ts" must export a "process" function`
+			`E_INVALID_PROFILER_WORKER: Profiler worker file must export a "process" function`
 		)
 	})
 

@@ -142,8 +142,11 @@ export class Profiler extends AbstractProfiler implements ProfilerContract {
 		this.worker.getStdout().pipe(process.stdout)
 		this.worker.getStderr().pipe(process.stderr)
 
+		/**
+		 * Ensure worker has "process" method on it
+		 */
 		if (typeof this.worker!['process'] !== 'function') {
-			throw InvalidProcessorException.missingWorkerMethod(fn)
+			throw InvalidProcessorException.missingWorkerMethod()
 		}
 
 		/**

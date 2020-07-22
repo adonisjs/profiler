@@ -8,28 +8,18 @@
  */
 
 import { Exception } from '@poppinss/utils'
+import exceptions from '../../exceptions.json'
 
 export class InvalidProcessorException extends Exception {
 	/**
 	 * Raised when the profiler worker doesn't exports the process
 	 * function
 	 */
-	public static missingWorkerMethod(workerPath: string) {
-		const error = new this(
-			`Profiler worker file "${workerPath}" must export a "process" function`,
-			500,
-			'E_INVALID_PROFILER_PROCESSOR'
-		)
+	public static missingWorkerMethod() {
+		const exception = exceptions['E_INVALID_PROFILER_WORKER']
 
-		error.help = `
-			Here's an example of how the profiler worker code should look like
-
-			\`\`\`
-			import { ProfilerAction, ProfilerRow } from '@ioc:Adonis/Core/Profiler'
-			export function process (log: ProfilerAction | ProfilerRow) {
-			}
-			\`\`\`
-		`
+		const error = new this(exception.message, exception.status, exception.code)
+		error.help = exception.help.join('\n')
 
 		return error
 	}
