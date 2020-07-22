@@ -10,8 +10,6 @@
 import { IocContract } from '@adonisjs/fold'
 import { LoggerContract } from '@ioc:Adonis/Core/Logger'
 
-import { Profiler } from '../src/Profiler'
-
 export default class ProfilerProvider {
 	constructor(protected container: IocContract) {}
 
@@ -20,6 +18,8 @@ export default class ProfilerProvider {
 			const config = this.container.use('Adonis/Core/Config').get('app.profiler', {})
 			const logger = this.container.use<LoggerContract>('Adonis/Core/Logger')
 			const appRoot = this.container.use('Adonis/Core/Application').appRoot
+
+			const { Profiler } = require('../src/Profiler')
 			return new Profiler(appRoot, logger, config)
 		})
 	}
