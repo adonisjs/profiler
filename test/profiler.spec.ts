@@ -154,6 +154,32 @@ test.group('Profile | profile', (group) => {
 		assert.isUndefined(packets[2].parent_id)
 	})
 
+	test('end action after the row (case overflow)', (assert) => {
+		let packets: any[] = []
+
+		function subscriber(node: any) {
+			packets.push(node)
+		}
+
+		const profiler = new Profiler(__dirname, logger, {})
+		profiler.process(subscriber)
+
+		const req = profiler.create('http_request', { id: '123' })
+		const child = req.profile('find_route')
+		req.end()
+		child.end()
+
+		assert.equal(packets[1].type, 'action')
+		assert.equal(packets[1].label, 'find_route')
+		assert.deepEqual(packets[1].data, {})
+		assert.equal(packets[1].parent_id, packets[0].id)
+
+		assert.equal(packets[0].type, 'row')
+		assert.equal(packets[0].label, 'http_request')
+		assert.deepEqual(packets[0].data, { id: '123' })
+		assert.isUndefined(packets[0].parent_id)
+	})
+
 	test('raise error when end is called twice on row', (assert) => {
 		let packets: any[] = []
 
