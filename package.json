@@ -2,14 +2,13 @@
 	"name": "@adonisjs/profiler",
 	"version": "4.0.1",
 	"description": "Profiler to time function calls in AdonisJs with context",
-	"main": "build/providers/ProfilerProvider.js",
+	"main": "build/index.js",
 	"files": [
 		"build/adonis-typings",
-		"build/providers",
 		"build/src",
-		"build/standalone.d.ts",
-		"build/standalone.js",
-		"build/exceptions.json"
+		"build/exceptions.json",
+		"build/index.d.ts",
+		"build/index.js"
 	],
 	"scripts": {
 		"mrm": "mrm --preset=@adonisjs/mrm-preset",
@@ -34,9 +33,6 @@
 	"author": "virk,adonisjs",
 	"license": "MIT",
 	"devDependencies": {
-		"@adonisjs/application": "^2.0.0",
-		"@adonisjs/config": "^1.1.0",
-		"@adonisjs/fold": "^6.3.5",
 		"@adonisjs/logger": "^2.1.0",
 		"@adonisjs/mrm-preset": "^2.4.0",
 		"@adonisjs/require-ts": "^1.0.0",
@@ -103,5 +99,9 @@
 	"homepage": "https://github.com/adonisjs/profiler#readme",
 	"adonisjs": {
 		"exceptions": "./build/exceptions.json"
+	},
+	"publishConfig": {
+		"access": "public",
+		"tag": "next"
 	}
 }
