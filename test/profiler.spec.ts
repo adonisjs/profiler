@@ -10,7 +10,7 @@
 import test from 'japa'
 import { join } from 'path'
 import { Filesystem } from '@poppinss/dev-utils'
-import { FakeLogger } from '@adonisjs/logger/build/standalone'
+import { FakeLogger } from '@adonisjs/logger'
 import { Profiler } from '../src/Profiler'
 
 const logger = new FakeLogger({ enabled: true, level: 'trace', name: 'adonis' })
