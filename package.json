@@ -33,22 +33,22 @@
 	"author": "virk,adonisjs",
 	"license": "MIT",
 	"devDependencies": {
-		"@adonisjs/logger": "^2.1.0",
+		"@adonisjs/logger": "^3.0.3",
 		"@adonisjs/mrm-preset": "^2.4.0",
 		"@adonisjs/require-ts": "^1.0.4",
 		"@poppinss/dev-utils": "^1.0.11",
-		"@types/node": "^14.11.8",
-		"commitizen": "^4.2.1",
+		"@types/node": "^14.14.2",
+		"commitizen": "^4.2.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"del-cli": "^3.0.1",
-		"eslint": "^7.11.0",
-		"eslint-config-prettier": "^6.12.0",
+		"eslint": "^7.12.0",
+		"eslint-config-prettier": "^6.14.0",
 		"eslint-plugin-adonis": "^1.0.15",
 		"eslint-plugin-prettier": "^3.1.4",
 		"github-label-sync": "^2.0.0",
 		"husky": "^4.3.0",
 		"japa": "^3.1.1",
-		"mrm": "^2.5.2",
+		"mrm": "^2.5.3",
 		"np": "^6.5.0",
 		"npm-audit-html": "^1.4.3",
 		"prettier": "^2.1.2",
@@ -76,7 +76,7 @@
 	"dependencies": {
 		"@poppinss/utils": "^2.5.7",
 		"cuid": "^2.1.8",
-		"jest-worker": "^26.5.0"
+		"jest-worker": "^26.6.1"
 	},
 	"peerDependencies": {
 		"@adonisjs/logger": "^3.0.0"
