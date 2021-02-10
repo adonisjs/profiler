@@ -1,6 +1,6 @@
 {
 	"name": "@adonisjs/profiler",
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"description": "Profiler to time function calls in AdonisJs with context",
 	"main": "build/index.js",
 	"files": [
