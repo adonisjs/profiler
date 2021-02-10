@@ -76,7 +76,7 @@
 		"jest-worker": "^26.6.2"
 	},
 	"peerDependencies": {
-		"@adonisjs/logger": "^3.0.0"
+		"@adonisjs/logger": "^4.0.0"
 	},
 	"np": {
 		"contents": ".",
