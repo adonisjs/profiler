@@ -9,7 +9,7 @@
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
-import cuid from 'cuid'
+import { cuid } from '@poppinss/utils/build/helpers'
 import { Exception } from '@poppinss/utils'
 
 import { ProfilerAction } from '../Action'
