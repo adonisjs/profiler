@@ -9,7 +9,7 @@
 
 /// <reference path="../../adonis-typings/profiler.ts" />
 
-import Worker from 'jest-worker'
+import { Worker } from 'jest-worker'
 import { resolveFrom } from '@poppinss/utils/build/helpers'
 import { LoggerContract } from '@ioc:Adonis/Core/Logger'
 
