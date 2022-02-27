@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import test from 'japa'
+import { test } from '@japa/runner'
 import { join } from 'path'
 import { Filesystem } from '@poppinss/dev-utils'
 import { FakeLogger } from '@adonisjs/logger'
@@ -17,19 +17,21 @@ const logger = new FakeLogger({ enabled: true, level: 'trace', name: 'adonis' })
 const fs = new Filesystem(join(__dirname, './app'))
 
 test.group('Profiler | isEnabled', () => {
-  test('return false from isEnabled when enabled inside config is set to false', (assert) => {
+  test('return false from isEnabled when enabled inside config is set to false', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, { enabled: false })
     profiler.process(() => {})
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
-  test('return true from isEnabled when whitelist is an empty array', (assert) => {
+  test('return true from isEnabled when whitelist is an empty array', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(() => {})
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
-  test('return false when whitelist is an empty array but blacklist has the label', (assert) => {
+  test('return false when whitelist is an empty array but blacklist has the label', ({
+    assert,
+  }) => {
     const profiler = new Profiler(__dirname, logger, {
       enabled: true,
       whitelist: [],
@@ -39,7 +41,7 @@ test.group('Profiler | isEnabled', () => {
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
-  test("return false when whitelist doesn't have the label", (assert) => {
+  test("return false when whitelist doesn't have the label", ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, {
       enabled: true,
       whitelist: ['foo'],
@@ -49,7 +51,7 @@ test.group('Profiler | isEnabled', () => {
     assert.isFalse(profiler.isEnabled('http request'))
   })
 
-  test('return true when whitelist has the label', (assert) => {
+  test('return true when whitelist has the label', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, {
       enabled: true,
       whitelist: ['http request'],
@@ -59,7 +61,7 @@ test.group('Profiler | isEnabled', () => {
     assert.isTrue(profiler.isEnabled('http request'))
   })
 
-  test("return true if it's in whitelist and black list both", (assert) => {
+  test("return true if it's in whitelist and black list both", ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, {
       enabled: true,
       whitelist: ['http request'],
@@ -71,11 +73,11 @@ test.group('Profiler | isEnabled', () => {
 })
 
 test.group('Profile | profile', (group) => {
-  group.afterEach(async () => {
+  group.each.teardown(async () => {
     await fs.cleanup()
   })
 
-  test('create a profiler row', (assert) => {
+  test('create a profiler row', ({ assert }) => {
     let packet: any = null
 
     function subscriber(node: any) {
@@ -94,7 +96,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packet.parent_id)
   })
 
-  test('create a profiler row and action', (assert) => {
+  test('create a profiler row and action', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -120,7 +122,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[1].parent_id)
   })
 
-  test('create a profiler row with nested row', (assert) => {
+  test('create a profiler row with nested row', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -154,7 +156,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[2].parent_id)
   })
 
-  test('end action after the row (case overflow)', (assert) => {
+  test('end action after the row (case overflow)', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -180,7 +182,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test('raise error when end is called twice on row', (assert) => {
+  test('raise error when end is called twice on row', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -194,7 +196,7 @@ test.group('Profile | profile', (group) => {
     req.end()
 
     const fn = () => req.end()
-    assert.throw(fn, 'attempt to end profiler row twice')
+    assert.throws(fn, 'attempt to end profiler row twice')
   })
 
   test('do not emit when subscriber is not defined', () => {
@@ -203,7 +205,7 @@ test.group('Profile | profile', (group) => {
     req.end()
   })
 
-  test('merge end data with actual data', (assert) => {
+  test('merge end data with actual data', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -218,7 +220,7 @@ test.group('Profile | profile', (group) => {
     assert.deepEqual(packets[0].data, { id: '123', time: 11 })
   })
 
-  test('return true when row has a parent', (assert) => {
+  test('return true when row has a parent', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, { enabled: true })
     profiler.process(() => {})
 
@@ -229,7 +231,7 @@ test.group('Profile | profile', (group) => {
     assert.isTrue(view.hasParent)
   })
 
-  test('profile callback', (assert) => {
+  test('profile callback', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -254,7 +256,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[1].parent_id)
   })
 
-  test('report callback errors', (assert) => {
+  test('report callback errors', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -285,7 +287,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[1].parent_id)
   })
 
-  test('profile async callback', async (assert) => {
+  test('profile async callback', async ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -310,7 +312,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[1].parent_id)
   })
 
-  test('report async callback errors', async (assert) => {
+  test('report async callback errors', async ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -341,7 +343,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[1].parent_id)
   })
 
-  test('profile without a row', (assert) => {
+  test('profile without a row', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -361,7 +363,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test('profile callback without a row', (assert) => {
+  test('profile callback without a row', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -380,7 +382,7 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test('profile async callback without a row', async (assert) => {
+  test('profile async callback without a row', async ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -403,18 +405,18 @@ test.group('Profile | profile', (group) => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test('raise exception when worker file is missing', (assert) => {
+  test('raise exception when worker file is missing', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, {})
     const fn = () => profiler.process('./foo.ts')
-    assert.throw(fn, "Cannot find module './foo.ts'")
+    assert.throws(fn, "Cannot find module './foo.ts'")
   })
 
-  test('raise exception when worker file does not export process function', async (assert) => {
+  test('raise exception when worker file does not export process function', async ({ assert }) => {
     await fs.add('./foo.ts', '')
 
     const profiler = new Profiler(fs.basePath, logger, {})
     const fn = () => profiler.process('./foo.ts')
-    assert.throw(
+    assert.throws(
       fn,
       `E_INVALID_PROFILER_WORKER: Profiler worker file must export a "process" function`
     )
@@ -434,7 +436,7 @@ test.group('Profile | profile', (group) => {
 })
 
 test.group('Profile | dummy profile', () => {
-  test('return dummy profiler instance when enabled is false', (assert) => {
+  test('return dummy profiler instance when enabled is false', ({ assert }) => {
     let packet: any = null
 
     function subscriber(node: any) {
@@ -450,7 +452,7 @@ test.group('Profile | dummy profile', () => {
     assert.isNull(packet)
   })
 
-  test('return dummy action when action is blacklisted', (assert) => {
+  test('return dummy action when action is blacklisted', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -472,7 +474,7 @@ test.group('Profile | dummy profile', () => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test("return dummy row when it's black listed", (assert) => {
+  test("return dummy row when it's black listed", ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -497,7 +499,7 @@ test.group('Profile | dummy profile', () => {
     assert.isUndefined(packets[0].parent_id)
   })
 
-  test('return dummy action within dummy action', (assert) => {
+  test('return dummy action within dummy action', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -518,7 +520,7 @@ test.group('Profile | dummy profile', () => {
     assert.lengthOf(packets, 0)
   })
 
-  test('return false from dummy row even when row has a parent', (assert) => {
+  test('return false from dummy row even when row has a parent', ({ assert }) => {
     const profiler = new Profiler(__dirname, logger, { enabled: false })
 
     const req = profiler.create('http_request', { id: '123' })
@@ -528,7 +530,7 @@ test.group('Profile | dummy profile', () => {
     assert.isFalse(view.hasParent)
   })
 
-  test('profile callback and return its output', (assert) => {
+  test('profile callback and return its output', ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
@@ -548,7 +550,7 @@ test.group('Profile | dummy profile', () => {
     assert.lengthOf(packets, 0)
   })
 
-  test('profile async callback and return its output', async (assert) => {
+  test('profile async callback and return its output', async ({ assert }) => {
     let packets: any[] = []
 
     function subscriber(node: any) {
